@@ -6,9 +6,17 @@
     "dev": "tsx watch src/index.ts"
   },
   "dependencies": {
-    "@trpc/server": "^11.0.0-rc.808"
+    "@trpc/server": "^11.0.0-rc.808",
+    "@types/node": "^22.13.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "mongoose": "^8.10.2",
+    "winston": "^3.17.0"
   },
   "exports": {
     "./trpc": "./src/index.ts"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17"
   }
 }

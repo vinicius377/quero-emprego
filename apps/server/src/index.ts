@@ -1,14 +1,26 @@
-import { createHTTPServer } from "@trpc/server/adapters/standalone"
-import { router } from "./trpc"
+import "dotenv/config";
+import { createHTTPServer } from "@trpc/server/adapters/standalone";
+import { publicProcedure, router } from "./trpc";
+import cors from 'cors'
+import { bootstrapDb } from "./libs/db";
+import { business } from "domains/business/business.router"
 
 const appRouter = router({
-})
+  business
+});
 
-export type AppRouter = typeof appRouter
+async function bootstrap() {
+  await bootstrapDb()
 
-const server = createHTTPServer({
-  router: appRouter
-})
+  const server = createHTTPServer({
+    router: appRouter,
+    middleware: cors()
+  });
 
-server.listen(3333)
+  server.listen(3333);
+}
+
+bootstrap()
+
+export type AppRouter = typeof appRouter;
 

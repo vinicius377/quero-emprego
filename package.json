@@ -1,0 +1,16 @@
+{
+  "name": "quero-emprego",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "dependencies": {
+    "typescript": "^5.7.3"
+  },
+  "devDependencies": {
+    "turbo": "^2.4.4"
+  }
+}

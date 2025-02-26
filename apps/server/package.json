@@ -1,0 +1,14 @@
+{
+  "name": "@apps/server",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsx watch src/index.ts"
+  },
+  "dependencies": {
+    "@trpc/server": "^11.0.0-rc.808"
+  },
+  "exports": {
+    "./trpc": "./src/index.ts"
+  }
+}

@@ -1,4 +1,4 @@
-import { Schema } from "mongoose"
+import { model, Schema } from "mongoose"
 import { Business } from "../types/business.type"
 
 const businessSchema = new Schema<Business>({
@@ -27,3 +27,7 @@ const businessSchema = new Schema<Business>({
     state: String
   }
 })
+
+export const businessCollectionName = "business"
+export const businessModel = model(businessCollectionName, businessSchema) 
+

@@ -1,5 +1,5 @@
 import { createTRPCClient, httpBatchLink } from "@trpc/client"
-import { AppRouter } from "@packages/trpc"
+import type { AppRouter } from "@packages/trpc"
 
 export const trpc = createTRPCClient<AppRouter>({
   links: [

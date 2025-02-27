@@ -13,10 +13,13 @@
     "mongoose": "^8.10.2",
     "winston": "^3.17.0"
   },
+  "devDependencies": {
+    "@types/cors": "^2.8.17"
+  },
   "exports": {
     "./trpc": "./src/index.ts"
   },
-  "devDependencies": {
-    "@types/cors": "^2.8.17"
+  "imports": {
+    "#*": "./src/*"
   }
 }

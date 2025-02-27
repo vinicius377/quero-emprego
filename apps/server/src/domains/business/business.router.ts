@@ -1,4 +1,4 @@
-import { publicProcedure } from "trpc";
+import { publicProcedure } from "../../trpc";
 
 const business = {
   createBusiness: publicProcedure.query(async () => {

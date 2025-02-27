@@ -1,9 +1,9 @@
 import "dotenv/config";
 import { createHTTPServer } from "@trpc/server/adapters/standalone";
-import { publicProcedure, router } from "./trpc";
+import { router } from "./trpc";
 import cors from 'cors'
 import { bootstrapDb } from "./libs/db";
-import { business } from "domains/business/business.router"
+import { business } from "./domains/business/business.router"
 
 const appRouter = router({
   business

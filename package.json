@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "dev": "turbo dev"
+  },
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -12,5 +15,6 @@
   },
   "devDependencies": {
     "turbo": "^2.4.4"
-  }
+  },
+  "packageManager": "yarn@1.22.22"
 }

@@ -1,6 +1,8 @@
 import './App.css';
+import { trpc } from './lib/trpc';
 
 const App = () => {
+
   return (
     <div className="content">
       <h1>Rsbuild with React</h1>

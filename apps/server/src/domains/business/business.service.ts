@@ -1,5 +1,5 @@
 import { Model } from "mongoose";
-import { CreateBusiness } from "./validations/business.validation";
+import { CreateBusinessDto } from "./validatiors/business.validation";
 import { Business } from "./types/business.type";
 import { businessModel } from "./entity/business.entity";
 
@@ -7,7 +7,7 @@ class BusinessService {
   constructor(
     private model: Model<Business>
   ) {}
-  async create(body: CreateBusiness) {
+  async create(body: CreateBusinessDto) {
     console.log(body)
     return
     return this.model.create({

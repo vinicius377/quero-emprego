@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-export const createBusinessValidation = z.object({
+export const createBusinessValidator = z.object({
   cnpj: z.number().min(99999999999999).max(99999999999999),
   businessName: z.string().min(5),
   responsableName: z.string().min(5),
@@ -10,4 +10,4 @@ export const createBusinessValidation = z.object({
   })
 })
 
-export type CreateBusiness = z.infer<typeof createBusinessValidation>
+export type CreateBusinessDto = z.infer<typeof createBusinessValidator>

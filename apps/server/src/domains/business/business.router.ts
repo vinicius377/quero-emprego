@@ -1,13 +1,15 @@
 import { z } from "zod";
 import { publicProcedure } from "../../libs/trpc";
 import { businessService } from "./business.service";
-import { createBusinessValidation } from "./validations/business.validation";
+import { createBusinessValidator } from "./validatiors/business.validation";
 
 const business = {
   create: publicProcedure
-    .input(createBusinessValidation)
+    .input(createBusinessValidator)
     .mutation(({ input }) => businessService.create(input)),
-  getById: publicProcedure.input(z.string()).query(({ input: id }) => businessService.getById(id)) 
+  getById: publicProcedure
+    .input(z.string())
+    .query(({ input: id }) => businessService.getById(id)),
 };
 
 export { business };

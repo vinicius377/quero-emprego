@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { createHTTPServer } from "@trpc/server/adapters/standalone";
 import { appRouter } from "./routes"
+import { createContext } from "./libs/trpc"
 import cors from 'cors'
 import { bootstrapDb } from "./libs/db";
 
@@ -10,10 +11,7 @@ async function bootstrap() {
   const server = createHTTPServer({
     router: appRouter,
     middleware: cors(),
-    onError: (x) => {
-      console.log(x)
-      return { tetse: true}
-    }
+    createContext,
   });
 
   server.listen(3333);

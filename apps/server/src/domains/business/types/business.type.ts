@@ -13,4 +13,5 @@ export interface Business {
   phoneNumner: number
   cnpj: number
   location: Address
+  password: string
 }

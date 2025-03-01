@@ -18,6 +18,9 @@ const businessSchema = new Schema<Business>({
     type: Number,
     unique: true
   },
+  password: {
+    type: String
+  },
   location: {
     address: String,
     city: String,

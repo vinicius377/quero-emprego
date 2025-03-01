@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { publicProcedure } from "../../libs/trpc";
 import { businessService } from "./business.service";
-import { createBusinessValidator } from "./validatiors/business.validation";
+import { createBusinessValidator } from "./dto/create-business.dto";
 
 const business = {
   create: publicProcedure

@@ -1,6 +1,6 @@
 import { publicProcedure } from "../../libs/trpc";
 import { authService } from "./auth.service";
-import { loginValidator } from "./validators/login.validator";
+import { loginValidator } from "./dto/login.validator";
 
 export const auth = {
   businessLogin: publicProcedure

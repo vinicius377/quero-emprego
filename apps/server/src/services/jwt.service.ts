@@ -1,10 +1,15 @@
 import jwt from "jsonwebtoken"
 
-class JWTService {
+export class JWTService {
   private secretOrPrivateKey = process.env.SECRET_OR_PRIVATE_KEY || ""
 
   async sign(data: any) {
-    return jwt.sign(data, this.secretOrPrivateKey, { expiresIn: '8h' })
+    const timeInHours = 8 
+    const exp = new Date()
+
+    exp.setHours(exp.getHours() + timeInHours )
+
+    return jwt.sign(data, this.secretOrPrivateKey, { expiresIn: `${timeInHours}h` })
   }
 
   async decodeAndValidate(token: string) {

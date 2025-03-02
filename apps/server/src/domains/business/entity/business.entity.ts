@@ -15,7 +15,7 @@ const businessSchema = new Schema<Business>({
     unique: true
   },
   cnpj: {
-    type: Number,
+    type: String,
     unique: true
   },
   password: {

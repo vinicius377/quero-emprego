@@ -11,7 +11,7 @@ export interface Business {
   businessName: string
   responsableName: string
   phoneNumner: number
-  cnpj: number
+  cnpj: string 
   location: Address
   password: string
 }

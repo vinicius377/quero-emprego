@@ -11,6 +11,4 @@ export const createBusinessValidator = z.object({
   })
 })
 
-
-
 export type CreateBusinessDto = z.infer<typeof createBusinessValidator>

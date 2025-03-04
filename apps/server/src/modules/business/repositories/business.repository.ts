@@ -21,6 +21,10 @@ export class BusinessRepository {
   async findById(id: string) {
     return this.model.findById(id)
   }
+
+  async findOne(params: Partial<Business>) {
+    return this.model.findOne(params)
+  }
 }
 
 export const businessRepository = new BusinessRepository(businessModel)

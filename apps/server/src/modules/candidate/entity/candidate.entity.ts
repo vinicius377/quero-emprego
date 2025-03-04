@@ -27,5 +27,5 @@ const candidateSchema = new Schema<Candidate>({
   education: { type: [edutationSchema] },
 });
 
-export const candidateCollectionName = "candidate";
+const candidateCollectionName = "candidate";
 export const candidateModel = model(candidateCollectionName, candidateSchema);

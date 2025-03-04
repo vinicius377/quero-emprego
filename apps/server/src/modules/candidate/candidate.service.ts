@@ -1,6 +1,4 @@
-import { Model } from "mongoose";
 import { CreateCandidateDto } from "./dto/create-candidate.dto";
-import { Candidate } from "./entity/candidate.type";
 import { candidateRepository, CandidateRepository } from "./repositories/candidate.repository";
 import { bcryptService, BcryptService } from "#services/bcrypt.service";
 

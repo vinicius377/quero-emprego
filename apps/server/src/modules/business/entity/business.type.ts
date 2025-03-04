@@ -1,5 +1,5 @@
 interface Address {
-   address: string,
+    address: string,
     city: string,
     postalCode: number,
     neighborhood: string,
@@ -10,7 +10,7 @@ interface Address {
 export interface Business {
   businessName: string
   responsableName: string
-  phoneNumner: number
+  phoneNumber: number
   cnpj: string 
   location: Address
   password: string

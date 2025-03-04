@@ -1,25 +1,25 @@
-import { model, Schema } from "mongoose"
-import { Business } from "./business.type"
+import { model, Schema } from "mongoose";
+import { Business } from "./business.type";
 
 const businessSchema = new Schema<Business>({
   businessName: {
-    type: String
+    type: String,
   },
   responsableName: {
-    type: String
+    type: String,
   },
-  phoneNumner: {
+  phoneNumber: {
     type: Number,
     min: 10,
     max: 11,
-    unique: true
+    unique: true,
   },
   cnpj: {
     type: String,
-    unique: true
+    unique: true,
   },
   password: {
-    type: String
+    type: String,
   },
   location: {
     address: String,
@@ -27,10 +27,9 @@ const businessSchema = new Schema<Business>({
     postalCode: Number,
     neighborhood: String,
     number: String,
-    state: String
-  }
-})
+    state: String,
+  },
+});
 
-export const businessCollectionName = "business"
-export const businessModel = model(businessCollectionName, businessSchema) 
-
+const businessCollectionName = "business";
+export const businessModel = model(businessCollectionName, businessSchema);

@@ -1,11 +1,13 @@
 import { z } from "zod";
 
 export const createCandidateValidator = z.object({
-  cpf: z.number().min(99999999999).max(99999999999),
-  birthDate: z.string().date(),
   name: z.string().min(3),
+  birthDate: z.string().date(),
   title: z.string().optional(),
   description: z.string(),
+  cpf: z.number().min(99999999999).max(99999999999),
+  password: z.string(),
+  phoneNumber: z.number(),
   experience: z.array(z.object({
     roleName: z.string(),
     startDate: z. string().date(),

@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose"
-import { Business } from "../types/business.type"
+import { Business } from "./business.type"
 
 const businessSchema = new Schema<Business>({
   businessName: {

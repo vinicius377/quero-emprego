@@ -6,4 +6,7 @@ export const auth = {
   businessLogin: publicProcedure
     .input(loginValidator)
     .mutation(({ input }) => authService.businessLogin(input)),
+  candidateLogin: publicProcedure
+    .input(loginValidator)
+    .mutation(({ input }) => authService.candidateLogin(input)),
 };

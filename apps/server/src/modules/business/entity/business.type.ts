@@ -1,3 +1,5 @@
+import { Role } from "#utils/role"
+
 interface Address {
     address: string,
     city: string,
@@ -14,4 +16,5 @@ export interface Business {
   cnpj: string 
   location: Address
   password: string
+  role: Role.business
 }

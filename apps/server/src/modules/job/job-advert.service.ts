@@ -7,7 +7,7 @@ class JobAdvertService {
   ){}
 
   async create(job: createJobAdvertDto) {
-      
+    const createdJobAdvert = this.repository.create(job, "")      
   }
 }
 

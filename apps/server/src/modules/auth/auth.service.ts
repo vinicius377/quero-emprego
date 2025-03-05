@@ -38,7 +38,13 @@ class Auth {
     if (!matchPassword)
       throw new TRPCError({ message: "Nao autorizado", code: "UNAUTHORIZED" });
 
-    await this.jwtService.sign(this.mountTokenPayloadToBusiness(business));
+    const payload = this.mountTokenPayloadToBusiness(business)
+    const token = await this.jwtService.sign(payload);
+
+    return {
+      token,
+      payload
+    }
   }
 
   async candidateLogin(body: LoginDto) {

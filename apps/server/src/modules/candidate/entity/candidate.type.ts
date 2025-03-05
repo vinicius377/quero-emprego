@@ -1,3 +1,5 @@
+import { Role } from "#utils/role"
+
 interface Education {
   courseName: string
   instituition: string
@@ -22,4 +24,5 @@ export interface Candidate {
   password: string
   experience: Experience[]
   education: Education[]
+  role: Role.candidate
 }

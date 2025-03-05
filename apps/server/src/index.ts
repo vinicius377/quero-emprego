@@ -10,7 +10,9 @@ async function bootstrap() {
 
   const server = createHTTPServer({
     router: appRouter,
-    middleware: cors(),
+    middleware: cors({
+      credentials: true
+    }),
     createContext,
   });
 

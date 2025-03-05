@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
 import { Business } from "./business.type";
+import { Role } from "#utils/role";
 
 const businessSchema = new Schema<Business>({
   businessName: {
@@ -29,6 +30,11 @@ const businessSchema = new Schema<Business>({
     number: String,
     state: String,
   },
+  role: {
+    type: String,
+    enum: Role,
+    default: Role.business
+  }
 });
 
 const businessCollectionName = "business";

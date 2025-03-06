@@ -8,7 +8,6 @@ export const auth = {
     .input(loginValidator)
     .mutation(async ({ input, ctx: { res } }) => {
       const { token, payload } = await authService.businessLogin(input);
-      res.setHeaders
       setCookie(res.setHeader, "auth", token, { httpOnly: true });
 
       return payload;

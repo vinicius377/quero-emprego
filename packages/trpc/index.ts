@@ -1,1 +1,2 @@
-export type { AppRouter } from "@apps/server/trpc"
+export type { AppRouter, RouterInput, RouterOutput } from "@apps/server/trpc"
+

@@ -5,12 +5,15 @@ export const createCandidateValidator = z.object({
   birthDate: z.string().date(),
   title: z.string().optional(),
   description: z.string(),
-  cpf: z.number().min(99999999999).max(99999999999),
+  cpf: z.preprocess(
+    x => Number(x),
+    z.number().refine(x => String(x).length === 11)
+  ),
   password: z.string(),
   phoneNumber: z.number(),
   experience: z.array(z.object({
     roleName: z.string(),
-    startDate: z. string().date(),
+    startDate: z.string().date(),
     endDate: z.string().date().optional(),
     description: z.string()
   })),

@@ -8,18 +8,18 @@ export function getCookies(req: Request) {
   return cookie.parse(cookieHeader)
 }
 
-export function getCookie(req: Request, name: string) {
-  const cookieHeader = req.headers.get('Cookie')
+export function getCookie(req: IncomingMessage, name: string) {
+  const cookieHeader = req.headers.cookie
   if (!cookieHeader) return
   const cookies = cookie.parse(cookieHeader)
   return cookies[name]
 }
 
 export function setCookie(
-  resHeaders: Pick<OutgoingMessage<IncomingMessage>, "setHeader">,
+  resHeaders: (OutgoingMessage<IncomingMessage>)["setHeader"],
   name: string,
   value: string,
   options?: SerializeOptions
 ) {
-  resHeaders.setHeader('Set-Cookie', cookie.serialize(name, value, options))
+  resHeaders('Set-Cookie', cookie.serialize(name, value, options))
 }

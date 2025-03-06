@@ -1,6 +1,7 @@
 import { Role } from "#utils/role"
+import { HydratedDocument } from "mongoose"
 
-interface Address {
+export interface Address {
     address: string,
     city: string,
     postalCode: number,
@@ -18,3 +19,5 @@ export interface Business {
   password: string
   role: Role.business
 }
+
+export type BusinessDocument = HydratedDocument<Business>

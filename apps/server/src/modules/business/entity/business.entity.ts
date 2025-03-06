@@ -11,13 +11,15 @@ const businessSchema = new Schema<Business>({
   },
   phoneNumber: {
     type: Number,
-    min: 10,
-    max: 11,
+    minlength: 10,
+    maxlength: 11,
     unique: true,
   },
   cnpj: {
     type: String,
     unique: true,
+    minlength: 14,
+    maxlength: 14,
   },
   password: {
     type: String,

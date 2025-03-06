@@ -4,6 +4,8 @@ import { appRouter } from "./routes"
 import { createContext } from "./libs/trpc"
 import cors from 'cors'
 import { bootstrapDb } from "./libs/db";
+import type { AppRouter } from '@packages/trpc';
+import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 
 async function bootstrap() {
   await bootstrapDb()
@@ -22,4 +24,7 @@ async function bootstrap() {
 bootstrap()
 
 export type AppRouter = typeof appRouter;
+
+export type RouterInput = inferRouterInputs<AppRouter>;
+export type RouterOutput = inferRouterOutputs<AppRouter>;
 

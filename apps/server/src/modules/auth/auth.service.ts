@@ -23,6 +23,7 @@ class Auth {
   ) { }
 
   async businessLogin(body: LoginDto) {
+    console.log("body")
     const business = await this.businessRepository.findOne({
       phoneNumber: body.phoneNumber,
     });

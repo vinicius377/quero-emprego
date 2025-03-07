@@ -23,7 +23,6 @@ class Auth {
   ) { }
 
   async businessLogin(body: LoginDto) {
-    console.log("body")
     const business = await this.businessRepository.findOne({
       phoneNumber: body.phoneNumber,
     });
@@ -71,6 +70,7 @@ class Auth {
     return {
       name: business.responsableName,
       phoneNumber: business.phoneNumber,
+      role: business.role
     };
   }
 
@@ -78,6 +78,7 @@ class Auth {
     return {
       name: candidate.name,
       phoneNumber: candidate.phoneNumber,
+      role: candidate.role
     };
   }
 

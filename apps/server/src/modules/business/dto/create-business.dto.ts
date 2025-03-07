@@ -10,18 +10,18 @@ export const createBusinessValidator = z.object({
   phoneNumber: z.preprocess(
     (x) => parseInt(x as string),
     z.number().refine((x) => {
-      const length = String(x).length
-      return length >= 10 || length === 11
+      const length = String(x).length;
+      return length >= 10 || length === 11;
     }, "Deve ter 10 ou 11 números"),
   ),
   password: z.string().min(4),
   location: z.object({
     city: z.string(),
     address: z.string(),
-    postalCode: z.number(),
+    postalCode: z.preprocess((x) => parseInt(x as string), z.number()),
     neighborhood: z.string(),
-    number: z.number(),
-    state: z.string()
+    number: z.preprocess((x) => parseInt(x as string), z.number()),
+    state: z.string(),
   }),
 });
 

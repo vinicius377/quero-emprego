@@ -10,6 +10,7 @@ class BusinessService {
 
   async create(body: CreateBusinessDto) {
     const password = await this.bcryptService.criptPassword(body.password)
+    console.log(password)
     return this.repository.create({
       ...body,
       password

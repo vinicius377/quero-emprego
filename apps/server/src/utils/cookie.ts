@@ -1,17 +1,16 @@
-import cookie, { SerializeOptions } from 'cookie'
-import {  } from "@trpc/server"
+import {serialize, parse, SerializeOptions } from 'cookie'
 import { IncomingMessage, OutgoingMessage } from 'http'
 
 export function getCookies(req: Request) {
   const cookieHeader = req.headers.get('Cookie')
   if (!cookieHeader) return {}
-  return cookie.parse(cookieHeader)
+  return parse(cookieHeader)
 }
 
 export function getCookie(req: IncomingMessage, name: string) {
   const cookieHeader = req.headers.cookie
   if (!cookieHeader) return
-  const cookies = cookie.parse(cookieHeader)
+  const cookies = parse(cookieHeader)
   return cookies[name]
 }
 
@@ -21,5 +20,5 @@ export function setCookie(
   value: string,
   options?: SerializeOptions
 ) {
-  resHeaders('Set-Cookie', cookie.serialize(name, value, options))
+  resHeaders('set-cookie', serialize(name, value, options))
 }

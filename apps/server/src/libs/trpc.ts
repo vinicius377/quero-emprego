@@ -1,3 +1,5 @@
+import { authUserMiddleware } from "#middleware/auth.middleware";
+import { Role } from "#utils/role";
 import { initTRPC } from "@trpc/server";
 import { CreateHTTPContextOptions } from "@trpc/server/adapters/standalone";
 import { ZodError } from "zod";
@@ -27,3 +29,13 @@ const t = initTRPC.context<typeof createContext>().create({
 
 export const router = t.router;
 export const publicProcedure = t.procedure;
+
+export const businessProcedure = publicProcedure.use(async (opts) => {
+  const user = await authUserMiddleware(Role.business, opts.ctx.req)
+
+  return opts.next({
+      ctx: {
+        user
+      }
+  })
+})

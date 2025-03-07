@@ -13,7 +13,8 @@ async function bootstrap() {
   const server = createHTTPServer({
     router: appRouter,
     middleware: cors({
-      credentials: true
+      credentials: true,
+      origin: "http://localhost:3000"
     }),
     createContext,
   });

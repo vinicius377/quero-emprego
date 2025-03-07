@@ -20,7 +20,6 @@ export class CandidateRepository {
     }));
 
     return this.model.create({
-      cpf: dto.cpf,
       name: dto.name,
       title: dto.title,
       password: dto.password,

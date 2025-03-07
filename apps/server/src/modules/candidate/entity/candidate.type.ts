@@ -17,7 +17,6 @@ interface Experience {
 export interface Candidate {
   name: string 
   title: string
-  cpf: string
   birthDate: Date
   description: string
   phoneNumber: number

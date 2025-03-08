@@ -15,7 +15,6 @@ export function BusinessLogin() {
   const onSubmit = async (data: LoginBody) => {
     try {
       const user = await trpc.auth.businessLogin.mutate(data);
-      console.log(user);
     } catch {}
   };
 

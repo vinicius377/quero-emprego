@@ -6,11 +6,13 @@ import { SignUpCandidate } from './public/SignUp/Candidate';
 import { BusinessLogin } from './public/Login/Business';
 import { CandidateLogin } from './public/Login/Candidate';
 import { CreateJobAdvert } from './private/business/CreateJobAdvert';
+import { JobsAdverts } from './public/JobAdverts';
 
 export function RoutePages() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<JobsAdverts />}/>
         <Route path="login" element={<Login />} >
           <Route path="empresa" element={<BusinessLogin />}/>
           <Route path="candidato" element={<CandidateLogin />}/>

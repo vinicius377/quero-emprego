@@ -1,10 +1,12 @@
+import { QueryClientProvider } from "@tanstack/react-query";
 import { RoutePages } from "./pages/Routes";
+import { queryClient } from "lib/queryClient";
 
 function App() {
   return (
-    <div className="content">
+    <QueryClientProvider client={queryClient}>
       <RoutePages />
-    </div>
+    </QueryClientProvider>
   );
 }
 

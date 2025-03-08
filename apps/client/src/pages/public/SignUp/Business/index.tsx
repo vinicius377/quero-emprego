@@ -33,7 +33,6 @@ export function SignUpBusiness() {
         },
       });
 
-      console.log(createdUser);
     } catch (e) {}
   };
 

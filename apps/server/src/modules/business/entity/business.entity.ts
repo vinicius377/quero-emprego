@@ -35,9 +35,14 @@ const businessSchema = new Schema<Business>({
   role: {
     type: String,
     enum: Role,
-    default: Role.business
-  }
+    default: Role.business,
+  },
 });
 
 const businessCollectionName = "business";
+businessSchema.pre("find", function(next) {
+  this.select("-password");
+  next();
+});
+
 export const businessModel = model(businessCollectionName, businessSchema);

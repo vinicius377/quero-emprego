@@ -1,5 +1,6 @@
 import { CreateJobAdvertDto } from "./dto/create-job-advert.dto";
 import { jobAdvertRepository, JobAdvertRepository } from "./repositories/job-advert.repository";
+import { JobAdvertList } from "./types/job-advert-list.type";
 
 class JobAdvertService {
   constructor(
@@ -10,6 +11,13 @@ class JobAdvertService {
     const createdJobAdvert = await this.repository.create(dto, businessId)      
 
     return createdJobAdvert
+  }
+
+  async list() {
+    const jobs = await this.repository.list()
+    const listJobs = jobs.map(x => x.toObject() as JobAdvertList)
+
+    return listJobs
   }
 
 }

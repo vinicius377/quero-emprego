@@ -2,7 +2,6 @@ import { Model } from "mongoose";
 import { Business } from "../entity/business.type";
 import { businessModel } from "../entity/business.entity";
 import { CreateBusinessDto } from "../dto/create-business.dto";
-import { mapToBusinessViewModel } from "../utils/mapToBusinessViewModel";
 
 export class BusinessRepository {
   constructor(private model: Model<Business>) { }
@@ -24,7 +23,7 @@ export class BusinessRepository {
       password: dto.password,
     };
 
-    return this.model.create(data).then(x => mapToBusinessViewModel(x));
+    return this.model.create(data) 
   }
 
   async findById(id: string) {

@@ -1,8 +1,8 @@
 import { BusinessDocument } from "#modules/business/entity/business.type";
 
-export interface JobAdvert {
+export interface JobAdvertList {
   title: string;
   description: string;
   remuneration?: number
-  businessId: string | BusinessDocument;
+  businessId: BusinessDocument 
 }

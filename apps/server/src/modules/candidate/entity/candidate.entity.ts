@@ -19,7 +19,6 @@ const edutationSchema = new Schema({
 const candidateSchema = new Schema<Candidate>({
   name: { type: String, required: true },
   title: { type: String },
-  cpf: { type: String, required: true },
   birthDate: { type: Date, required: true },
   description: { type: String },
   phoneNumber: { type: Number },
@@ -34,4 +33,9 @@ const candidateSchema = new Schema<Candidate>({
 });
 
 const candidateCollectionName = "candidate";
+candidateSchema.pre("find", function(next) {
+  this.select("-password");
+  next();
+});
+
 export const candidateModel = model(candidateCollectionName, candidateSchema);

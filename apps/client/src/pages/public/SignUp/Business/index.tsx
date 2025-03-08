@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import type { RouterInput } from '@packages/trpc';
-import { trpc } from '../../../lib/trpc';
+import { trpc } from 'lib/trpc';
 
 type CreateBusiness = RouterInput['business']['create'];
 
@@ -41,24 +41,14 @@ export function SignUpBusiness() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
         <span>Dados</span>
-        <input type="text" placeholder="Digite o CNPJ" {...register('cnpj')} />
+        <input placeholder="Digite o CNPJ" {...register('cnpj')} />
+        <input placeholder="Digite o seu número" {...register('phoneNumber')} />
+        <input placeholder="Digite a sua senha" {...register('password')} />
         <input
-          type="text"
-          placeholder="Digite o seu número"
-          {...register('phoneNumber')}
-        />
-        <input
-          type="text"
-          placeholder="Digite a sua senha"
-          {...register('password')}
-        />
-        <input
-          type="text"
           placeholder="Digite o nome da sua empresa"
           {...register('businessName')}
         />
         <input
-          type="text"
           placeholder="Digite o nome do responsável"
           {...register('responsableName')}
         />
@@ -66,25 +56,18 @@ export function SignUpBusiness() {
       <div>
         <span>Endereço</span>
         <input
-          type="text"
           {...register('location.city')}
           placeholder="Digite o nome da cidade"
           disabled
         />
-        <input type="text" {...register('location.state')} disabled />
+        <input {...register('location.state')} disabled />
+        <input {...register('location.number')} placeholder="Digite o número" />
+        <input {...register('location.postalCode')} disabled />
         <input
-          type="text"
-          {...register('location.number')}
-          placeholder="Digite o número"
-        />
-        <input type="text" {...register('location.postalCode')} disabled />
-        <input
-          type="text"
           {...register('location.neighborhood')}
           placeholder="Digite o bairro"
         />
         <input
-          type="text"
           {...register('location.address')}
           placeholder="Digite o endereço"
         />

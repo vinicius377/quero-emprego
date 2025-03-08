@@ -1,5 +1,5 @@
 import { UserType } from 'compoments/UserType';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 export function SignUp() {
 

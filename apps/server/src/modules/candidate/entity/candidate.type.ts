@@ -1,4 +1,5 @@
 import { Role } from "#utils/role"
+import { HydratedDocument } from "mongoose"
 
 interface Education {
   courseName: string
@@ -25,3 +26,5 @@ export interface Candidate {
   education: Education[]
   role: Role.candidate
 }
+
+export type CandidateDocument = HydratedDocument<Candidate>

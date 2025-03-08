@@ -4,4 +4,5 @@ export interface TokenData {
   name: string;
   phoneNumber: number
   role: Role
+  id: string
 }

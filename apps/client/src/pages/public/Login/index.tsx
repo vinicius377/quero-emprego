@@ -5,7 +5,7 @@ export function Login() {
   return (
     <section>
       <UserType />
-        <Outlet />
+      <Outlet />
     </section>
   );
 }

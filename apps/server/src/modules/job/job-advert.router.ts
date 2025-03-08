@@ -1,9 +1,9 @@
-import { publicProcedure } from "#libs/trpc";
+import { businessProcedure } from "../../libs/trpc";
 import { createJobAdvertValidator } from "./dto/create-job-advert.dto";
 import { jobAdvertService } from "./job-advert.service";
 
 export const jobAdvert = {
-  create: publicProcedure
+  create: businessProcedure 
     .input(createJobAdvertValidator)
-    .mutation(({ input }) => jobAdvertService.create(input)),
+    .mutation(({ input, ctx }) => jobAdvertService.create(input, ctx.user?.id || "")),
 };

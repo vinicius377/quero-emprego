@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Login } from './Login';
-import { SignUp } from './SignUp';
-import { SignUpBusiness } from './SignUp/Business';
-import { SignUpCandidate } from './SignUp/Candidate';
-import { BusinessLogin } from './Login/Business';
-import { CandidateLogin } from './Login/Candidate';
+import { Login } from './public/Login';
+import { SignUp } from './public/SignUp';
+import { SignUpBusiness } from './public/SignUp/Business';
+import { SignUpCandidate } from './public/SignUp/Candidate';
+import { BusinessLogin } from './public/Login/Business';
+import { CandidateLogin } from './public/Login/Candidate';
+import { CreateJobAdvert } from './private/business/CreateJobAdvert';
 
 export function RoutePages() {
   return (
@@ -18,6 +19,7 @@ export function RoutePages() {
           <Route index path="empresa" element={<SignUpBusiness />}/>
           <Route index path="candidato" element={<SignUpCandidate />}/>
         </Route>
+        <Route path="criar-emprego" element={<CreateJobAdvert />}/>
       </Routes>
     </BrowserRouter>
   );

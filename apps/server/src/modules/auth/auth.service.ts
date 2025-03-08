@@ -11,8 +11,8 @@ import {
   candidateRepository,
   CandidateRepository,
 } from "#modules/candidate/repositories/candidate.repository";
-import { Business } from "#modules/business/entity/business.type";
-import { Candidate } from "#modules/candidate/entity/candidate.type";
+import { BusinessDocument } from "#modules/business/entity/business.type";
+import { CandidateDocument } from "#modules/candidate/entity/candidate.type";
 
 class Auth {
   constructor(
@@ -39,11 +39,12 @@ class Auth {
       throw new TRPCError({ message: "Nao autorizado", code: "UNAUTHORIZED" });
 
     const payload = this.mountTokenPayloadToBusiness(business)
-    const token = await this.jwtService.sign(payload);
+    const { token, expires } = await this.jwtService.sign(payload);
 
     return {
       token,
-      payload
+      payload,
+      expires
     }
   }
 
@@ -66,19 +67,21 @@ class Auth {
     await this.jwtService.sign(this.mountTokenPayloadToCandidate(candidate));
   }
 
-  private mountTokenPayloadToBusiness(business: Business): TokenData {
+  private mountTokenPayloadToBusiness(business: BusinessDocument): TokenData {
     return {
       name: business.responsableName,
       phoneNumber: business.phoneNumber,
-      role: business.role
+      role: business.role,
+      id: business._id.toString()
     };
   }
 
-  private mountTokenPayloadToCandidate(candidate: Candidate): TokenData {
+  private mountTokenPayloadToCandidate(candidate: CandidateDocument): TokenData {
     return {
       name: candidate.name,
       phoneNumber: candidate.phoneNumber,
-      role: candidate.role
+      role: candidate.role,
+      id: candidate._id.toString()
     };
   }
 

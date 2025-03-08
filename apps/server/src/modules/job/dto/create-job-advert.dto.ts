@@ -3,7 +3,7 @@ import { z } from "zod";
 export const createJobAdvertValidator = z.object({
   title: z.string(),
   description: z.string(),
-  remuneration: z.number().min(1).optional()
-})
+  remuneration: z.preprocess((x) => Number(x), z.number().min(1).optional()),
+});
 
-export type createJobAdvertDto = z.infer<typeof createJobAdvertValidator>
+export type CreateJobAdvertDto = z.infer<typeof createJobAdvertValidator>;

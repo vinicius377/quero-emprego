@@ -13,7 +13,7 @@ export class JobAdvertRepository {
       businessId,
       title: dto.title,
       description: dto.description,
-      remuneration: dto.remuneration
+      remuneration: dto.remuneration,
     })
   }
 

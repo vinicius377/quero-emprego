@@ -8,8 +8,12 @@ export class JWTService {
     const exp = new Date()
 
     exp.setHours(exp.getHours() + timeInHours )
+    const token = jwt.sign(data, this.secretOrPrivateKey, { expiresIn: `${timeInHours}h` })
 
-    return jwt.sign(data, this.secretOrPrivateKey, { expiresIn: `${timeInHours}h` })
+    return {
+      token,
+      expires: exp
+    } 
   }
 
   async decodeAndValidate(token: string) {

@@ -4,5 +4,6 @@ export interface JobAdvertList {
   title: string;
   description: string;
   remuneration?: number
-  businessId: BusinessDocument 
+  business: BusinessDocument 
+  id: string
 }

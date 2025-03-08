@@ -5,7 +5,7 @@ import { CreateJobAdvertDto } from "../dto/create-job-advert.dto";
 
 export class JobAdvertRepository {
   constructor(
-    private readonly model: Model<JobAdvert>
+    private model: Model<JobAdvert>
   ){}
 
   async create(dto: CreateJobAdvertDto, businessId: string) {

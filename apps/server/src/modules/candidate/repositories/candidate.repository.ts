@@ -7,13 +7,13 @@ export class CandidateRepository {
   constructor(private model: Model<Candidate>) { }
 
   async create(dto: CreateCandidateDto) {
-    const experience = dto.experience.map((x) => ({
+    const experience = dto.experience?.map((x) => ({
       ...x,
       endDate: x.endDate ? new Date(x.endDate).toISOString() : null,
       startDate: new Date(x.startDate).toISOString(),
     }));
 
-    const education = dto.education.map((x) => ({
+    const education = dto.education?.map((x) => ({
       ...x,
       endDate: x.endDate ? new Date(x.endDate).toISOString() : null,
       startDate: new Date(x.startDate).toISOString(),

@@ -38,14 +38,14 @@ class Auth {
     if (!matchPassword)
       throw new TRPCError({ message: "Nao autorizado", code: "UNAUTHORIZED" });
 
-    const payload = this.mountTokenPayloadToBusiness(business)
+    const payload = this.mountTokenPayloadToBusiness(business);
     const { token, expires } = await this.jwtService.sign(payload);
 
     return {
       token,
       payload,
-      expires
-    }
+      expires,
+    };
   }
 
   async candidateLogin(body: LoginDto) {
@@ -64,7 +64,14 @@ class Auth {
     if (!matchPassword)
       throw new TRPCError({ message: "Nao autorizado", code: "UNAUTHORIZED" });
 
-    await this.jwtService.sign(this.mountTokenPayloadToCandidate(candidate));
+    const payload = this.mountTokenPayloadToCandidate(candidate);
+    const { token, expires } = await this.jwtService.sign(payload);
+
+    return {
+      token,
+      payload,
+      expires,
+    };
   }
 
   private mountTokenPayloadToBusiness(business: BusinessDocument): TokenData {
@@ -72,19 +79,20 @@ class Auth {
       name: business.responsableName,
       phoneNumber: business.phoneNumber,
       role: business.role,
-      id: business._id.toString()
+      id: business._id.toString(),
     };
   }
 
-  private mountTokenPayloadToCandidate(candidate: CandidateDocument): TokenData {
+  private mountTokenPayloadToCandidate(
+    candidate: CandidateDocument,
+  ): TokenData {
     return {
       name: candidate.name,
       phoneNumber: candidate.phoneNumber,
       role: candidate.role,
-      id: candidate._id.toString()
+      id: candidate._id.toString(),
     };
   }
-
 }
 
 export const authService = new Auth(

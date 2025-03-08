@@ -17,7 +17,7 @@ export function SignUpBusiness() {
 
   const onSubmit = async (data: CreateBusiness) => {
     try {
-      const createdUser = await trpc.business.create.mutate({
+      const createdBusiness = await trpc.business.create.mutate({
         cnpj: data.cnpj,
         password: data.password,
         businessName: data.businessName,

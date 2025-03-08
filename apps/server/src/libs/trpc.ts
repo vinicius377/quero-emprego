@@ -19,7 +19,7 @@ const t = initTRPC.context<typeof createContext>().create({
       data: {
         ...shape.data,
         zodError:
-          error.code === 'BAD_REQUEST' && error.cause instanceof ZodError
+          error.code === "BAD_REQUEST" && error.cause instanceof ZodError
             ? error.cause.flatten()
             : null,
       },
@@ -31,11 +31,21 @@ export const router = t.router;
 export const publicProcedure = t.procedure;
 
 export const businessProcedure = publicProcedure.use(async (opts) => {
-  const user = await authUserMiddleware(Role.business, opts.ctx.req)
+  const user = await authUserMiddleware(Role.business, opts.ctx.req);
 
   return opts.next({
-      ctx: {
-        user
-      }
-  })
-})
+    ctx: {
+      user,
+    },
+  });
+});
+
+export const candidateProcedure = publicProcedure.use(async (opts) => {
+  const user = await authUserMiddleware(Role.candidate, opts.ctx.req);
+
+  return opts.next({
+    ctx: {
+      user,
+    },
+  });
+});

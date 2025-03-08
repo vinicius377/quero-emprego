@@ -18,7 +18,16 @@ export const auth = {
     }),
   candidateLogin: publicProcedure
     .input(loginValidator)
-    .mutation(({ input }) => authService.candidateLogin(input)),
+    .mutation(async ({ input, ctx: { res } }) => {
+      const { token, payload, expires } =
+        await authService.candidateLogin(input);
+      res.setHeader(
+        "set-cookie",
+        serialize("auth", token, { httpOnly: true, expires }),
+      );
+
+      return payload;
+    }),
   signOut: publicProcedure.mutation(({ ctx: { res } }) => {
     res.setHeader("set-cookie", serialize("auth", ""));
   }),

@@ -6,6 +6,7 @@ export function Login() {
   const signOut = () => {
     trpc.auth.signOut.mutate();
   };
+
   return (
     <section>
       <UserType />

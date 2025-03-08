@@ -23,8 +23,8 @@ const candidateSchema = new Schema<Candidate>({
   description: { type: String },
   phoneNumber: { type: Number },
   password: { type: String, required: true },
-  experience: { type: [experienceSchema] },
-  education: { type: [edutationSchema] },
+  experience: { type: [experienceSchema], default: [] },
+  education: { type: [edutationSchema], default: [] },
   role: {
     type: String,
     enum: Role,

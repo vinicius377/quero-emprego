@@ -19,4 +19,7 @@ export const auth = {
   candidateLogin: publicProcedure
     .input(loginValidator)
     .mutation(({ input }) => authService.candidateLogin(input)),
+  signOut: publicProcedure.mutation(({ ctx: { res } }) => {
+    res.setHeader("set-cookie", serialize("auth", ""));
+  }),
 };

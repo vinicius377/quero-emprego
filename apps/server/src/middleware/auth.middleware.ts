@@ -7,7 +7,9 @@ import { TRPCError } from "@trpc/server";
 
 export const authUserMiddleware = async (role: Role, req: IncomingMessage) => {
   const token = getCookie(req, "auth") 
-  if (!token) return null
+  if (!token) {
+    throw new TRPCError({ message: "Token invalido", code: "UNAUTHORIZED"}) 
+  }
 
   let user!:TokenData
   try {

@@ -1,10 +1,13 @@
 import type { RouterInput } from '@packages/trpc';
 import { trpc } from 'lib/trpc';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 type CreateCandidate = RouterInput['candidate']['create'];
 
 export function SignUpCandidate() {
+  const navigate = useNavigate()
   const { register, handleSubmit } = useForm<CreateCandidate>();
 
   const onSubmit = async (data: CreateCandidate) => { 
@@ -17,6 +20,9 @@ export function SignUpCandidate() {
         name: data.name,
         birthDate: new Date()
       })
+
+      toast.success(`Bem vindo ${createdCandidate.responsableName}, faça o login`)
+      navigate("/login/empresa")
     } catch (e) {
 
     }

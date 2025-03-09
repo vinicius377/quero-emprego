@@ -4,7 +4,7 @@ import { trpc } from 'lib/trpc';
 export function JobsAdverts() {
   const { data: jobs, isLoading } = useQuery({
     queryKey: ['job-advert'],
-    queryFn: () => trpc.jobAdvert.list.query(),
+    queryFn: () => trpc.jobAdvert.list.query({ page: 1, size: 10 }),
   });
 
   if (isLoading) return <div>Carregando</div>;
@@ -24,7 +24,9 @@ export function JobsAdverts() {
           <span>{job.title}</span>
           <span>{job.remuneration}</span>
           <p>{job.description}</p>
-          <button type="button" onClick={applyToJob(job.id)}>Aplicar</button>
+          <button disabled={job.applied} type="button" onClick={applyToJob(job.id)}>
+            Aplicar
+          </button>
         </div>
       ))}
     </section>

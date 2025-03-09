@@ -4,7 +4,7 @@ import {
   BusinessRepository,
   businessRepository,
 } from "./repositories/business.repository";
-import { BusinessDocument } from "./entity/business.type";
+import { TRPCError } from "@trpc/server";
 
 class BusinessService {
   constructor(
@@ -13,6 +13,8 @@ class BusinessService {
   ) { }
 
   async create(body: CreateBusinessDto) {
+    await this.verifyPhoneNumberIsUsed(body.phoneNumber)
+
     const password = await this.bcryptService.criptPassword(body.password);
     const createdBusiness = await this.repository.create({
       ...body,
@@ -24,6 +26,12 @@ class BusinessService {
 
   async getById(id: string) {
     return this.repository.findById(id);
+  }
+
+  private async verifyPhoneNumberIsUsed(phoneNumber: number) {
+    const alreadyExist = await this.repository.findOne({ phoneNumber: phoneNumber })
+
+    if (alreadyExist) throw new TRPCError({ message: "Já existe um usuário com esse número", code: "CONFLICT" })
   }
 }
 

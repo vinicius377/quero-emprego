@@ -1,10 +1,13 @@
 import { useForm } from 'react-hook-form';
 import type { RouterInput } from '@packages/trpc';
 import { trpc } from 'lib/trpc';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 type CreateBusiness = RouterInput['business']['create'];
 
 export function SignUpBusiness() {
+  const navigate = useNavigate()
   const { register, handleSubmit } = useForm<CreateBusiness>({
     defaultValues: {
       location: {
@@ -32,7 +35,8 @@ export function SignUpBusiness() {
           neighborhood: data.location.neighborhood,
         },
       });
-
+      toast.success(`Bem vindo ${createdBusiness.responsableName}, faça o login`)
+      navigate("/login/empresa")
     } catch (e) {}
   };
 

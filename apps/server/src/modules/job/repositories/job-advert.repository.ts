@@ -2,6 +2,7 @@ import { jobAdvertModel } from "#modules/job/entity/job-advert.entity";
 import { JobAdvert } from "#modules/job/entity/job-advert.type";
 import { Model } from "mongoose";
 import { CreateJobAdvertDto } from "../dto/create-job-advert.dto";
+import { PaginationDto } from "#utils/pagination";
 
 export class JobAdvertRepository {
   constructor(
@@ -17,8 +18,9 @@ export class JobAdvertRepository {
     })
   }
 
-  async list() {
-    return this.model.find().populate("businessId")
+  async list(dto: PaginationDto) {
+    const skip = dto.size * (dto.page - 1)
+    return this.model.find().limit(dto.size).skip(skip).populate("businessId")
   }
 
 }

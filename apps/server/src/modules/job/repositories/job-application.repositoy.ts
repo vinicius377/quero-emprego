@@ -12,6 +12,20 @@ export class JobApplicationRepository {
       jobAdvertId: dto.jobAdvertId,
     });
   }
+
+  async list(candidateId: string) {
+    return this.model
+      .find({ candidateId })
+      .populate(["candidateId", "jobAdvertId"]);
+  }
+
+  async listByJobIdList(candidateId: string, jobsId: string[]) {
+    return this.model.find({ candidateId, jobAdvertId: { $in: jobsId } });
+  }
+
+  async findByCandidateAndJobId(candidateId: string, jobId: string) {
+    return this.model.findOne({ candidateId, jobAdvertId: jobId })
+  }
 }
 
 export const jobApplicationRepository = new JobApplicationRepository(

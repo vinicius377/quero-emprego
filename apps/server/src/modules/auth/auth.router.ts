@@ -7,11 +7,14 @@ export const auth = {
   businessLogin: publicProcedure
     .input(loginValidator)
     .mutation(async ({ input, ctx: { res } }) => {
-      const { token, payload, expires } =
-        await authService.businessLogin(input);
+      const { token, payload } = await authService.businessLogin(input);
       res.setHeader(
         "set-cookie",
-        serialize("auth", token, { httpOnly: true, expires }),
+        serialize("auth", token, {
+          httpOnly: true,
+          expires: payload.expires,
+          secure: true,
+        }),
       );
 
       return payload;
@@ -19,11 +22,14 @@ export const auth = {
   candidateLogin: publicProcedure
     .input(loginValidator)
     .mutation(async ({ input, ctx: { res } }) => {
-      const { token, payload, expires } =
-        await authService.candidateLogin(input);
+      const { token, payload } = await authService.candidateLogin(input);
       res.setHeader(
         "set-cookie",
-        serialize("auth", token, { httpOnly: true, expires }),
+        serialize("auth", token, {
+          httpOnly: true,
+          expires: payload.expires,
+          secure: true,
+        }),
       );
 
       return payload;

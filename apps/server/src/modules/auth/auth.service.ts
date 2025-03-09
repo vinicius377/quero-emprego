@@ -43,8 +43,10 @@ class Auth {
 
     return {
       token,
-      payload,
-      expires,
+      payload: {
+        ...payload,
+        expires,
+      },
     };
   }
 
@@ -69,8 +71,10 @@ class Auth {
 
     return {
       token,
-      payload,
-      expires,
+      payload: {
+        ...payload,
+        expires,
+      },
     };
   }
 

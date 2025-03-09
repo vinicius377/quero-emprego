@@ -5,5 +5,6 @@ export interface JobAdvertList {
   description: string;
   remuneration?: number
   business: BusinessDocument 
+  applied: boolean
   id: string
 }

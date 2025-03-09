@@ -15,7 +15,7 @@ class CandidateService {
       password
     })
 
-    return createdCandidate
+    return createdCandidate.toObject()
   }
 }
 

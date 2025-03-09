@@ -8,4 +8,5 @@ export const jobApplication = {
     .mutation(({ ctx, input }) =>
       jobApplicationService.apply(input, ctx.user.id),
     ),
+  list: candidateProcedure.query(({ ctx }) => jobApplicationService.list(ctx.user.id))
 };

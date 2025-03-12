@@ -1,11 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import { trpc } from 'lib/trpc';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import * as moneyMask from '@/utils/moneyMask';
 
 export function JobsAdverts() {
   const { data: jobs, isLoading } = useQuery({
     queryKey: ['job-advert'],
     queryFn: () => trpc.jobAdvert.list.query({ page: 1, size: 10 }),
   });
+  const navigate = useNavigate();
 
   if (isLoading) return <div>Carregando</div>;
 
@@ -14,19 +18,37 @@ export function JobsAdverts() {
       const appliedJob = await trpc.jobApplication.apply.mutate({
         jobAdvertId: id,
       });
-    } catch (e) {}
+    } catch (e) {
+      if (e.message === 'Token invalido') {
+        navigate('/login/candidato');
+      }
+      toast.error(e.message);
+    }
   };
 
   return (
-    <section>
+    <section className="space-y-2">
       {jobs?.map((job) => (
-        <div key={job.id} style={{ borderTop: 'solid 1px red' }}>
-          <span>{job.title}</span>
-          <span>{job.remuneration}</span>
-          <p>{job.description}</p>
-          <button disabled={job.applied} type="button" onClick={applyToJob(job.id)}>
-            Aplicar
-          </button>
+        <div
+          className="rounded p-2"
+          key={job.id}
+          style={{ boxShadow: "0 0 4px 0 rgba(0,0,0,0.3)"}}
+        >
+          <div className="flex justify-between">
+            <span>{job.title}</span>
+            <span>{moneyMask.appy(job.remuneration || 0)}</span>
+          </div>
+          <div className="flex justify-between">
+            <p className="text-sm text-[#828282]">{job.description}</p>
+            <button
+              disabled={job.applied}
+              type="button"
+              onClick={applyToJob(job.id)}
+              className="cursor-pointer"
+            >
+              Aplicar
+            </button>
+          </div>
         </div>
       ))}
     </section>

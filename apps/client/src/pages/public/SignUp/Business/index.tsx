@@ -3,11 +3,13 @@ import type { RouterInput } from '@packages/trpc';
 import { trpc } from 'lib/trpc';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 type CreateBusiness = RouterInput['business']['create'];
 
 export function SignUpBusiness() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm<CreateBusiness>({
     defaultValues: {
       location: {
@@ -35,47 +37,57 @@ export function SignUpBusiness() {
           neighborhood: data.location.neighborhood,
         },
       });
-      toast.success(`Bem vindo ${createdBusiness.responsableName}, faça o login`)
-      navigate("/login/empresa")
+      toast.success(
+        `Bem vindo ${createdBusiness.responsableName}, faça o login`,
+      );
+      navigate('/login/empresa');
     } catch (e) {}
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <span>Dados</span>
-        <input placeholder="Digite o CNPJ" {...register('cnpj')} />
-        <input placeholder="Digite o seu número" {...register('phoneNumber')} />
-        <input placeholder="Digite a sua senha" {...register('password')} />
-        <input
-          placeholder="Digite o nome da sua empresa"
-          {...register('businessName')}
-        />
-        <input
-          placeholder="Digite o nome do responsável"
-          {...register('responsableName')}
-        />
+        <h3 className="font-medium">Dados</h3>
+        <div className="space-y-2 ml-2">
+          <Input
+            placeholder="Digite o nome da sua empresa"
+            {...register('businessName')}
+          />
+          <Input
+            placeholder="Digite o nome do responsável"
+            {...register('responsableName')}
+          />
+          <Input placeholder="Digite o CNPJ" {...register('cnpj')} />
+          <Input
+            placeholder="Digite o seu número"
+            {...register('phoneNumber')}
+          />
+          <Input placeholder="Digite a sua senha" {...register('password')} />
+        </div>
       </div>
-      <div>
-        <span>Endereço</span>
-        <input
-          {...register('location.city')}
-          placeholder="Digite o nome da cidade"
-          disabled
-        />
-        <input {...register('location.state')} disabled />
-        <input {...register('location.number')} placeholder="Digite o número" />
-        <input {...register('location.postalCode')} disabled />
-        <input
-          {...register('location.neighborhood')}
-          placeholder="Digite o bairro"
-        />
-        <input
-          {...register('location.address')}
-          placeholder="Digite o endereço"
-        />
+      <div className="my-2">
+        <h3 className="font-medium">Endereço</h3>
+        <div className="space-y-2 ml-2">
+          <Input
+            {...register('location.neighborhood')}
+            placeholder="Digite o bairro"
+          />
+          <Input
+            {...register('location.address')}
+            placeholder="Digite o endereço"
+          />
+          <Input
+            {...register('location.number')}
+            placeholder="Digite o número"
+          />
+          <div className="flex gap-2">
+            <Input {...register('location.postalCode')} disabled />
+            <Input {...register('location.city')} disabled />
+            <Input {...register('location.state')} disabled />
+          </div>
+        </div>
       </div>
-      <button type="submit">Criar</button>
+      <Button type="submit">Criar</Button>
     </form>
   );
 }

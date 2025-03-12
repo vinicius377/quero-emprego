@@ -1,3 +1,5 @@
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import type { RouterInput } from '@packages/trpc';
 import { trpc } from 'lib/trpc';
 import { useForm } from 'react-hook-form';
@@ -7,10 +9,10 @@ import { toast } from 'react-toastify';
 type CreateCandidate = RouterInput['candidate']['create'];
 
 export function SignUpCandidate() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm<CreateCandidate>();
 
-  const onSubmit = async (data: CreateCandidate) => { 
+  const onSubmit = async (data: CreateCandidate) => {
     try {
       const createdCandidate = await trpc.candidate.create.mutate({
         password: data.password,
@@ -18,29 +20,31 @@ export function SignUpCandidate() {
         title: data.title,
         phoneNumber: data.phoneNumber,
         name: data.name,
-        birthDate: new Date()
-      })
+        birthDate: new Date(),
+      });
 
-      toast.success(`Bem vindo ${createdCandidate.responsableName}, faça o login`)
-      navigate("/login/empresa")
-    } catch (e) {
-
-    }
-  }
+      toast.success(
+        `Bem vindo ${createdCandidate.name}, faça o login`,
+      );
+      navigate('/login/empresa');
+    } catch (e) {}
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <span>Dados pessois</span>
-        <input {...register('name')} placeholder="Digite seu nome" />
-        <input
-          {...register('description')}
-          placeholder="Digite uma descrição"
-        />
-        <input {...register('title')} placeholder="Digite um título" />
-        <input {...register('password')} placeholder="Digite uma senha" />
-        <input {...register('phoneNumber')} placeholder="Digite seu número" />
+        <h3 className="font-semibold">Dados pessoais</h3>
+        <div className="space-y-2">
+          <Input {...register('name')} placeholder="Digite seu nome" />
+          <Input
+            {...register('description')}
+            placeholder="Digite uma descrição"
+          />
+          <Input {...register('title')} placeholder="Digite um título" />
+          <Input {...register('password')} placeholder="Digite uma senha" />
+          <Input {...register('phoneNumber')} placeholder="Digite seu número" />
+        </div>
       </div>
-      <button type="submit">Criar</button>
+      <Button type="submit">Criar</Button>
     </form>
   );
 }

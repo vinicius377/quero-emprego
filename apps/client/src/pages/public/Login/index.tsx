@@ -1,19 +1,14 @@
-import { UserType } from 'compoments/UserType';
-import { trpc } from 'lib/trpc';
+import { UserType } from 'components/UserType';
 import { Outlet } from 'react-router-dom';
 
 export function Login() {
-  const signOut = () => {
-    trpc.auth.signOut.mutate();
-  };
-
   return (
     <section>
       <UserType />
-      <button onClick={signOut} type="button">
-        Sair
-      </button>
+      <div className="max-w-[30rem] m-auto mt-2">
+
       <Outlet />
+      </div>
     </section>
   );
 }

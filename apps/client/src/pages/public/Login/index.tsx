@@ -6,8 +6,7 @@ export function Login() {
     <section>
       <UserType />
       <div className="max-w-[30rem] m-auto mt-2">
-
-      <Outlet />
+        <Outlet />
       </div>
     </section>
   );

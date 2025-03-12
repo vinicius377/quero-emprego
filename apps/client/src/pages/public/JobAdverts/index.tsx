@@ -31,7 +31,7 @@ export function JobsAdverts() {
       {jobs?.map((job) => (
         <div
           className="rounded p-2"
-          key={job.id}
+          key={job._id}
           style={{ boxShadow: "0 0 4px 0 rgba(0,0,0,0.3)"}}
         >
           <div className="flex justify-between">
@@ -43,7 +43,7 @@ export function JobsAdverts() {
             <button
               disabled={job.applied}
               type="button"
-              onClick={applyToJob(job.id)}
+              onClick={applyToJob(job._id)}
               className="cursor-pointer"
             >
               Aplicar

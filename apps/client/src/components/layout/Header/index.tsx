@@ -7,7 +7,7 @@ export function Header() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex bg-white shadow-md justify-between items-center py-2 px-4">
+    <div className="flex h-14 bg-white shadow-md justify-between items-center py-2 px-4">
       <h1 onClick={() => navigate('/')} className="cursor-pointer">Quero emprego!</h1>
       {user ? (
         <MenuUser />

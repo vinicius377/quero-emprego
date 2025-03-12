@@ -26,6 +26,10 @@ export class JobApplicationRepository {
   async findByCandidateAndJobId(candidateId: string, jobId: string) {
     return this.model.findOne({ candidateId, jobAdvertId: jobId })
   }
+
+  async listByCandidateId(candidateId: string) {
+    return this.model.find({ candidateId })
+  }
 }
 
 export const jobApplicationRepository = new JobApplicationRepository(

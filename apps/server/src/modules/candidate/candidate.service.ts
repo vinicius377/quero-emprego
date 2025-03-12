@@ -1,6 +1,7 @@
 import { CreateCandidateDto } from "./dto/create-candidate.dto";
 import { candidateRepository, CandidateRepository } from "./repositories/candidate.repository";
 import { bcryptService, BcryptService } from "#services/bcrypt.service";
+import { PaginationDto } from "#utils/pagination";
 
 class CandidateService {
   constructor(

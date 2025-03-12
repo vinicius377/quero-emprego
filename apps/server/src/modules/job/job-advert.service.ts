@@ -45,6 +45,10 @@ class JobAdvertService {
     return listJobs;
   }
 
+  async listByBusiness(params: PaginationDto, businessId: string) {
+    return this.repository.listByBusinessId(params, businessId)
+  }
+
   private mapToList(jobsApplication: JobApplicationDocument[]) {
     return (job: JobAdvertDocument): JobAdvertList => {
       const data = job.toObject();
@@ -53,7 +57,7 @@ class JobAdvertService {
       );
 
       return {
-        id: job._id.toString(),
+        _id: job._id.toString(),
         business: data.businessId as BusinessDocument,
         applied,
         title: data.title,

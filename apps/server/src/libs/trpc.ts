@@ -4,6 +4,7 @@ import { Role } from "#utils/role";
 import { initTRPC } from "@trpc/server";
 import { CreateHTTPContextOptions } from "@trpc/server/adapters/standalone";
 import { ZodError } from "zod";
+import superjson from "superjson"
 
 export async function createContext({ req, res }: CreateHTTPContextOptions) {
   return {
@@ -13,19 +14,7 @@ export async function createContext({ req, res }: CreateHTTPContextOptions) {
 }
 
 const t = initTRPC.context<typeof createContext>().create({
-  errorFormatter: (opts) => {
-    const { shape, error } = opts;
-    return {
-      message: shape.message,
-      data: {
-        ...shape.data,
-        zodError:
-          error.code === "BAD_REQUEST" && error.cause instanceof ZodError
-            ? error.cause.flatten()
-            : null,
-      },
-    };
-  },
+    transformer: superjson
 });
 
 export const router = t.router;

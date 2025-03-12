@@ -1,13 +1,7 @@
 import { paginationValidator } from "#utils/pagination";
-import { z } from "zod";
 import { businessProcedure, publicProcedure } from "../../libs/trpc";
 import { createJobAdvertValidator } from "./dto/create-job-advert.dto";
 import { jobAdvertService } from "./job-advert.service";
-import { createBusinessValidator } from "#modules/business/dto/create-business.dto";
-
-const list = createJobAdvertValidator.extend({
-  business: createBusinessValidator 
-})
 
 export const jobAdvert = {
   create: businessProcedure
@@ -18,5 +12,8 @@ export const jobAdvert = {
   list: publicProcedure
     .input(paginationValidator)
     .query(({ input, ctx }) => jobAdvertService.list(input, ctx.user)),
+  listByBusiness: businessProcedure
+    .input(paginationValidator)
+    .query(({ input, ctx }) => jobAdvertService.listByBusiness(input, ctx.user.id)),
 };
 

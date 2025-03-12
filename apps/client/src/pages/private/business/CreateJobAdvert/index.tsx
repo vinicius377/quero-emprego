@@ -1,10 +1,12 @@
 import { trpc } from 'lib/trpc';
 import type { RouterInput } from '@packages/trpc';
 import { useForm } from 'react-hook-form';
+import { Input } from '@/components/ui/input';
+import { PrivateRoute } from '@/components/PrivateRoute';
 
 type CreateJobInput = RouterInput['jobAdvert']['create'];
 
-export function CreateJobAdvert() {
+function CreateJobAdvertComponent() {
   const { register, handleSubmit } = useForm<CreateJobInput>();
 
   const onSubmit = (data: CreateJobInput) => {
@@ -20,8 +22,8 @@ export function CreateJobAdvert() {
   return (
     <section>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register('title')} placeholder="Digite um título" />
-        <input
+        <Input {...register('title')} placeholder="Digite um título" />
+        <Input
           {...register('remuneration')}
           placeholder="Digite a remuneração"
         />
@@ -36,3 +38,5 @@ export function CreateJobAdvert() {
     </section>
   );
 }
+
+export const CreateJobAdvert = PrivateRoute(<CreateJobAdvertComponent />, "business")

@@ -6,5 +6,4 @@ export const candidate = {
   create: publicProcedure
     .input(createCandidateValidator)
     .mutation(({ input }) => candidateService.create(input)),
-};
-
+ };

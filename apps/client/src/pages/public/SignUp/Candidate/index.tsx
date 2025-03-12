@@ -40,7 +40,7 @@ export function SignUpCandidate() {
             placeholder="Digite uma descrição"
           />
           <Input {...register('title')} placeholder="Digite um título" />
-          <Input {...register('password')} placeholder="Digite uma senha" />
+          <Input {...register('password')} type="password" placeholder="Digite uma senha" />
           <Input {...register('phoneNumber')} placeholder="Digite seu número" />
         </div>
       </div>

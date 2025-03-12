@@ -62,7 +62,7 @@ export function SignUpBusiness() {
             placeholder="Digite o seu número"
             {...register('phoneNumber')}
           />
-          <Input placeholder="Digite a sua senha" {...register('password')} />
+          <Input placeholder="Digite a sua senha" type="password" {...register('password')} />
         </div>
       </div>
       <div className="my-2">

@@ -11,6 +11,7 @@
     "packages/*"
   ],
   "dependencies": {
+    "superjson": "^2.2.2",
     "typescript": "^5.7.3"
   },
   "devDependencies": {

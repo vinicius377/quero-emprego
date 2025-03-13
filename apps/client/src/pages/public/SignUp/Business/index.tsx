@@ -62,24 +62,32 @@ export function SignUpBusiness() {
             placeholder="Digite o seu número"
             {...register('phoneNumber')}
           />
-          <Input placeholder="Digite a sua senha" type="password" {...register('password')} />
+          <Input
+            placeholder="Digite a sua senha"
+            type="password"
+            {...register('password')}
+          />
         </div>
       </div>
       <div className="my-2">
         <h3 className="font-medium">Endereço</h3>
         <div className="space-y-2 ml-2">
           <Input
-            {...register('location.neighborhood')}
-            placeholder="Digite o bairro"
-          />
-          <Input
             {...register('location.address')}
             placeholder="Digite o endereço"
           />
-          <Input
-            {...register('location.number')}
-            placeholder="Digite o número"
-          />
+          <div className="flex gap-2">
+            <Input
+              {...register('location.neighborhood')}
+              placeholder="Digite o bairro"
+            />
+
+            <Input
+              {...register('location.number')}
+              placeholder="Digite o número"
+            />
+          </div>
+
           <div className="flex gap-2">
             <Input {...register('location.postalCode')} disabled />
             <Input {...register('location.city')} disabled />

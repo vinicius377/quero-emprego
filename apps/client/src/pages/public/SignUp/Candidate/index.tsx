@@ -44,7 +44,7 @@ export function SignUpCandidate() {
           <Input {...register('phoneNumber')} placeholder="Digite seu número" />
         </div>
       </div>
-      <Button type="submit">Criar</Button>
+      <Button className="mt-2" type="submit">Criar</Button>
     </form>
   );
 }

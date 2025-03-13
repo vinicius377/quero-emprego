@@ -1,9 +1,10 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { userService } from 'services/user.service';
 import { MenuUser } from './Menu';
+import { useAtomValue } from 'jotai';
 
 export function Header() {
-  const user = userService.user;
+  const user = useAtomValue(userService.user);
   const navigate = useNavigate();
 
   return (

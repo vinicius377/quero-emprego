@@ -6,16 +6,26 @@ import {
   MenubarTrigger,
 } from '@/components/ui/menubar';
 import { trpc } from '@/lib/trpc';
+import { useAtomValue } from 'jotai';
 import { Link } from 'react-router-dom';
 import { userService } from 'services/user.service';
 import Cookies from 'universal-cookie';
 
 export function MenuUser() {
-  const user = userService.user;
+  const user = useAtomValue(userService.user);
   const cookie = new Cookies();
 
-  const signOut = () => {
-    trpc.auth.signOut.mutate().then(() => cookie.remove('user'));
+  if (!user) return null
+
+  const signOut = async () => {
+    try {
+      await trpc.auth.signOut.mutate()
+
+      cookie.remove('user')
+      userService.remove()
+    } catch {
+
+    }
   };
 
   return (

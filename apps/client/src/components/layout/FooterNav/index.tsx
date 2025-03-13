@@ -1,7 +1,13 @@
+import { userService } from '@/services/user.service';
+import { useAtomValue } from 'jotai';
 import { AlignJustify, CirclePlus } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export function FooterNav() {
+  const user = useAtomValue(userService.user);
+
+  if (!user) return null;
+
   return (
     <div className="h-14 px-2 bg-white flex justify-around py-2 md:hidden">
       <Link to="/criar-emprego">

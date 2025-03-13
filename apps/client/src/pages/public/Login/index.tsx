@@ -1,4 +1,4 @@
-import { UserType } from 'components/UserType';
+import { UserType } from 'components/shared/UserType';
 import { Outlet } from 'react-router-dom';
 
 export function Login() {

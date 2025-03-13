@@ -16,8 +16,12 @@ class JobApplicationService {
     return this.repository.create(dto, candidateId) 
   }
 
-  async list(candidateId: string) {
-    return this.repository.list(candidateId)
+  async listByCandidate(candidateId: string) {
+    return this.repository.listByCandidateId(candidateId)
+  }
+
+  async listByJobAdvert(id: string) {
+    return this.repository.listByJobAdvert(id)
   }
 }
 

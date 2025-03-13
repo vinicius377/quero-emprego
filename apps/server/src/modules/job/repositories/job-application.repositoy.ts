@@ -13,7 +13,7 @@ export class JobApplicationRepository {
     });
   }
 
-  async list(candidateId: string) {
+  async listByCandidateId(candidateId: string) {
     return this.model
       .find({ candidateId })
       .populate(["candidateId", "jobAdvertId"]);
@@ -27,8 +27,8 @@ export class JobApplicationRepository {
     return this.model.findOne({ candidateId, jobAdvertId: jobId })
   }
 
-  async listByCandidateId(candidateId: string) {
-    return this.model.find({ candidateId })
+  async listByJobAdvert(id: string) {
+    return this.model.find({ jobAdvertId: id }).populate(["candidateId"])
   }
 }
 

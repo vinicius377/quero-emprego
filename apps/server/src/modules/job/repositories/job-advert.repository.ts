@@ -25,6 +25,10 @@ export class JobAdvertRepository {
     const skip = dto.size * (dto.page - 1);
     return this.model.find({ businessId }).limit(dto.size).skip(skip);
   }
+
+  async getById(id: string) {
+    return this.model.findById(id)
+  }
 }
 
 export const jobAdvertRepository = new JobAdvertRepository(jobAdvertModel);

@@ -49,6 +49,10 @@ class JobAdvertService {
     return this.repository.listByBusinessId(params, businessId)
   }
 
+  async getById(id: string) {
+    return this.repository.getById(id)
+  }
+
   private mapToList(jobsApplication: JobApplicationDocument[]) {
     return (job: JobAdvertDocument): JobAdvertList => {
       const data = job.toObject();

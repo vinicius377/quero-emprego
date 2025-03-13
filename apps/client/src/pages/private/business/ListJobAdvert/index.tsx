@@ -1,7 +1,7 @@
 import { trpc } from '@/lib/trpc';
 import { useQuery } from '@tanstack/react-query';
 import * as moneyMask from '@/utils/moneyMask';
-import { PrivateRoute } from '@/components/PrivateRoute';
+import { PrivateRoute } from '@/components/shared/PrivateRoute';
 import { useNavigate } from 'react-router-dom';
 
 function ListJobAdvertComponent() {
@@ -9,7 +9,7 @@ function ListJobAdvertComponent() {
     queryFn: () => trpc.jobAdvert.listByBusiness.query({ page: 1, size: 10 }),
     queryKey: ['job-advert-business'],
   });
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   if (isLoading) return <div>Carregando..</div>;
 
@@ -17,7 +17,7 @@ function ListJobAdvertComponent() {
     <section className="space-y-2">
       {jobs?.map((job) => (
         <div
-          className="rounded p-2"
+          className="rounded p-2 cursor-pointer"
           key={job._id}
           style={{ boxShadow: '0 0 4px 0 rgba(0,0,0,0.3)' }}
           onClick={() => navigate(String(job._id))}
@@ -35,4 +35,8 @@ function ListJobAdvertComponent() {
   );
 }
 
-export const ListJobAdvert = PrivateRoute(<ListJobAdvertComponent />, "business")
+export const ListJobAdvert = (
+  <PrivateRoute role="business">
+    <ListJobAdvertComponent />
+  </PrivateRoute>
+);

@@ -3,6 +3,9 @@ import { trpc } from 'lib/trpc';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as moneyMask from '@/utils/moneyMask';
+import { Button } from '@/components/ui/button';
+import { userService } from '@/services/user.service';
+import { useAtomValue } from 'jotai';
 
 export function JobsAdverts() {
   const { data: jobs, isLoading } = useQuery({
@@ -10,6 +13,7 @@ export function JobsAdverts() {
     queryFn: () => trpc.jobAdvert.list.query({ page: 1, size: 10 }),
   });
   const navigate = useNavigate();
+  const user = useAtomValue(userService.user);
 
   if (isLoading) return <div>Carregando</div>;
 
@@ -32,7 +36,7 @@ export function JobsAdverts() {
         <div
           className="rounded p-2"
           key={job._id}
-          style={{ boxShadow: "0 0 4px 0 rgba(0,0,0,0.3)"}}
+          style={{ boxShadow: '0 0 4px 0 rgba(0,0,0,0.3)' }}
         >
           <div className="flex justify-between">
             <span>{job.title}</span>
@@ -40,14 +44,16 @@ export function JobsAdverts() {
           </div>
           <div className="flex justify-between">
             <p className="text-sm text-[#828282]">{job.description}</p>
-            <button
-              disabled={job.applied}
-              type="button"
-              onClick={applyToJob(job._id)}
-              className="cursor-pointer"
-            >
-              Aplicar
-            </button>
+            {user?.role === 'candidate' && (
+              <Button
+                disabled={job.applied}
+                type="button"
+                onClick={applyToJob(job._id)}
+                className="cursor-pointer"
+              >
+                Aplicar
+              </Button>
+            )}
           </div>
         </div>
       ))}

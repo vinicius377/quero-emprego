@@ -2,7 +2,7 @@ import { trpc } from 'lib/trpc';
 import type { RouterInput } from '@packages/trpc';
 import { useForm } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
-import { PrivateRoute } from '@/components/PrivateRoute';
+import { PrivateRoute } from '@/components/shared/PrivateRoute';
 
 type CreateJobInput = RouterInput['jobAdvert']['create'];
 
@@ -39,4 +39,4 @@ function CreateJobAdvertComponent() {
   );
 }
 
-export const CreateJobAdvert = PrivateRoute(<CreateJobAdvertComponent />, "business")
+export const CreateJobAdvert = <PrivateRoute role="business"><CreateJobAdvertComponent /> </PrivateRoute>

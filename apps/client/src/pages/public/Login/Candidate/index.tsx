@@ -6,11 +6,13 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { userService } from 'services/user.service';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { useAtomValue } from 'jotai';
 
 type LoginBody = RouterInput['auth']['businessLogin'];
 
 export function CandidateLogin() {
-  const user = userService.user
+  const user = useAtomValue(userService.user)
   const navigate = useNavigate()
   const { register, handleSubmit } = useForm<LoginBody>({
     defaultValues: {
@@ -46,7 +48,7 @@ export function CandidateLogin() {
         {...register('password')}
       />
 
-      <button type="submit">Logar</button>
+      <Button className="mt-2" type="submit">Logar</Button>
     </form>
   );
 }

@@ -3,6 +3,8 @@ import type { RouterInput } from '@packages/trpc';
 import { useForm } from 'react-hook-form';
 import { Input } from '@/components/ui/input';
 import { PrivateRoute } from '@/components/shared/PrivateRoute';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
 
 type CreateJobInput = RouterInput['jobAdvert']['create'];
 
@@ -21,22 +23,27 @@ function CreateJobAdvertComponent() {
 
   return (
     <section>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
         <Input {...register('title')} placeholder="Digite um título" />
         <Input
           {...register('remuneration')}
           placeholder="Digite a remuneração"
         />
-        <textarea
-          {...register('description')}
-          placeholder="Digite uma descrição"
-        >
-          {' '}
-        </textarea>
-        <button type="submit">Criar</button>
+        <div>
+          <Textarea
+            {...register('description')}
+            placeholder="Digite uma descrição"
+            className="w-full p-2 border border-[#c4c4c4] resize-none rounded"
+          />
+        </div>
+        <Button type="submit">Criar</Button>
       </form>
     </section>
   );
 }
 
-export const CreateJobAdvert = <PrivateRoute role="business"><CreateJobAdvertComponent /> </PrivateRoute>
+export const CreateJobAdvert = (
+  <PrivateRoute role="business">
+    <CreateJobAdvertComponent />{' '}
+  </PrivateRoute>
+);

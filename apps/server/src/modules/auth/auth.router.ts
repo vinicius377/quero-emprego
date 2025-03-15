@@ -1,7 +1,7 @@
 import { serialize } from "cookie";
 import { publicProcedure } from "../../libs/trpc";
 import { authService } from "./auth.service";
-import { loginValidator } from "./dto/login.validator";
+import { loginValidator } from "./dto/login.dto";
 
 export const auth = {
   businessLogin: publicProcedure

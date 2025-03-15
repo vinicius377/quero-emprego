@@ -24,7 +24,10 @@
     "@types/cors": "^2.8.17"
   },
   "exports": {
-    "./trpc": "./src/index.ts"
+    "./trpc": "./src/index.ts",
+    "./validators/*": [
+      "./src/modules/auth/dto/*.ts"
+    ]
   },
   "imports": {
     "#*": "./src/*"

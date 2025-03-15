@@ -1,4 +1,4 @@
-import { LoginDto } from "./dto/login.validator";
+import { LoginDto } from "./dto/login.dto";
 import { jwtService, JWTService } from "#services/jwt.service";
 import { bcryptService, BcryptService } from "#services/bcrypt.service";
 import { TRPCError } from "@trpc/server";

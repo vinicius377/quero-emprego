@@ -1,5 +1,6 @@
 import 'react-toastify/ReactToastify.css';
 import './App.css';
+import "babel-polyfill"
 import { QueryClientProvider } from '@tanstack/react-query';
 import { RoutePages } from './pages/Routes';
 import { queryClient } from 'lib/queryClient';

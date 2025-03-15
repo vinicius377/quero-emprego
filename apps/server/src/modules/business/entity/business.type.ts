@@ -21,3 +21,4 @@ export interface Business {
 }
 
 export type BusinessDocument = HydratedDocument<Business>
+

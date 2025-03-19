@@ -18,5 +18,8 @@
   "devDependencies": {
     "turbo": "^2.4.4"
   },
-  "packageManager": "yarn@1.22.22"
+  "packageManager": "yarn@1.22.22",
+  "main": "index.js",
+  "repository": "git@github.com:vinicius377/quero-emprego.git",
+  "author": "Vinicius <viniciusep181@gmail.com>"
 }

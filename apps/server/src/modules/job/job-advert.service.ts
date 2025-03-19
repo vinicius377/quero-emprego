@@ -1,7 +1,7 @@
 import { TokenData } from "#modules/auth/types/token";
 import { BusinessDocument } from "#modules/business/entity/business.type";
 import { PaginationDto } from "#utils/pagination";
-import { Role } from "#utils/role";
+import { Role } from "@packages/types/enums/index";
 import { CreateJobAdvertDto } from "./dto/create-job-advert.dto";
 import { JobAdvert } from "./entity/job-advert.type";
 import { JobApplication } from "./entity/job-application.type";
@@ -50,6 +50,10 @@ class JobAdvertService {
 
   async getById(id: string) {
     return this.repository.getById(id)
+  }
+
+  async changeStatus() {
+    
   }
 
   private mapToList(jobsApplication: JobApplication[]) {

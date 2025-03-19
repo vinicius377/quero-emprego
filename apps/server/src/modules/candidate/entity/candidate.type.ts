@@ -27,3 +27,5 @@ export interface Candidate {
   role: Role.candidate
   _id: string
 }
+
+export type CandidateDocument = HydratedDocument<Candidate>

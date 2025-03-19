@@ -1,14 +1,14 @@
 import { model, Schema } from "mongoose";
 import { JobApplication } from "./job-application.type";
-import { Status } from "../utils/status";
 import { jobAdvertModel } from "./job-advert.entity";
 import { candidateModel } from "#modules/candidate/entity/candidate.entity";
 import { randomUUID } from "node:crypto";
+import { StatusApplication } from "@packages/types/enums/index";
 
 const jobApplication = new Schema<JobApplication>({
   status: {
-    enum: Status,
-    default: Status.pending,
+    enum: StatusApplication,
+    default: StatusApplication.pending,
     type: String
   },
   candidateId: {

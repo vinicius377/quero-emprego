@@ -50,7 +50,6 @@ function JobDetailsComponent() {
           <p className="text-sm text-[#828282]">{parse(job.description)}</p>
         </div>
         <div>
-          {job.}
         </div>
       </div>
       <section>

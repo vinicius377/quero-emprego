@@ -1,8 +1,8 @@
 import { userService } from '@/services/user.service';
 import type { ReactNode } from 'react';
 import { NotFoundPage } from '../NotFoundPage';
-import type { Role } from '@/types/Roles';
 import { useAtomValue } from 'jotai';
+import type { Role } from "@packages/types/enums/index"
 
 export function PrivateRoute({
   children,

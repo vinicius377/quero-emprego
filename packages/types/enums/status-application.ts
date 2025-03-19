@@ -1,4 +1,4 @@
-export enum Status {
+export enum StatusApplication {
   "approved" = "approved",
   "interview" = "interview",
   "reproved" = "reproved",

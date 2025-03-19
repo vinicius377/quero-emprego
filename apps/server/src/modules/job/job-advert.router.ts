@@ -3,6 +3,12 @@ import { z } from "zod";
 import { businessProcedure, publicProcedure } from "../../libs/trpc";
 import { createJobAdvertValidator } from "@packages/validators/job/create-job-advert"
 import { jobAdvertService } from "./job-advert.service";
+import { StatusJob } from "@packages/types/enums/index";
+
+const x = z.object({
+  id: z.string(),
+  status: z.nativeEnum(StatusJob)
+})
 
 export const jobAdvert = {
   create: businessProcedure
@@ -21,4 +27,7 @@ export const jobAdvert = {
   getById: businessProcedure
     .input(z.string())
     .query(({ input }) => jobAdvertService.getById(input)),
+  changeStatus: businessProcedure
+    .input(x)
+    .mutation(({ ctx, input }) => jobAdvertService.changeStatus(input, ctx.user.id))
 };

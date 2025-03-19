@@ -18,6 +18,8 @@ export interface Business {
   location: Address
   password: string
   role: Role.business
+  id: string
+  _id: string
 }
 
 export type BusinessDocument = HydratedDocument<Business>

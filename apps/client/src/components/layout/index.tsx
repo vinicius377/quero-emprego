@@ -8,7 +8,7 @@ export function Layout({ children }: { children: ReactNode }) {
       <div className="fixed top-0 z-10 w-full">
         <Header />
       </div>
-      <main className="min-h-screen pt-14 mt-2 px-2 bg-[#fafafa]">
+      <main className="min-h-screen pt-14 mt-2 px-2 bg-[#fafafa] mb-[4rem] md:mb-4">
         <div className="max-w-[70rem] m-auto ">{children}</div>
       </main>
       <div className="fixed bottom-0 z-10 w-full">

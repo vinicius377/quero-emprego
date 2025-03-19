@@ -5,12 +5,14 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { createBusinessValidator } from '@packages/validators/business/create-business';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 type CreateBusiness = RouterInput['business']['create'];
 
 export function SignUpBusiness() {
   const navigate = useNavigate();
-  const { register, handleSubmit } = useForm<CreateBusiness>({
+  const { register, handleSubmit } = useForm({
     defaultValues: {
       location: {
         city: 'Mucambo',
@@ -18,6 +20,7 @@ export function SignUpBusiness() {
         state: 'CE',
       },
     },
+    resolver: zodResolver(createBusinessValidator),
   });
 
   const onSubmit = async (data: CreateBusiness) => {
@@ -58,15 +61,17 @@ export function SignUpBusiness() {
             {...register('responsableName')}
           />
           <Input placeholder="Digite o CNPJ" {...register('cnpj')} />
-          <Input
-            placeholder="Digite o seu número"
-            {...register('phoneNumber')}
-          />
-          <Input
-            placeholder="Digite a sua senha"
-            type="password"
-            {...register('password')}
-          />
+          <div className="flex gap-2">
+            <Input
+              placeholder="Digite o seu número"
+              {...register('phoneNumber')}
+            />
+            <Input
+              placeholder="Digite a sua senha"
+              type="password"
+              {...register('password')}
+            />
+          </div>
         </div>
       </div>
       <div className="my-2">
@@ -80,18 +85,19 @@ export function SignUpBusiness() {
             <Input
               {...register('location.neighborhood')}
               placeholder="Digite o bairro"
+              className="w-full"
             />
 
             <Input
               {...register('location.number')}
               placeholder="Digite o número"
+              className="w-full"
             />
           </div>
-
           <div className="flex gap-2">
-            <Input {...register('location.postalCode')} disabled />
-            <Input {...register('location.city')} disabled />
-            <Input {...register('location.state')} disabled />
+            <Input styleField={{ flex: 2}} {...register('location.postalCode')} disabled />
+            <Input styleField={{ flex: 2}} {...register('location.city')} disabled />
+            <Input styleField={{ flex: 1}} {...register('location.state')} disabled />
           </div>
         </div>
       </div>

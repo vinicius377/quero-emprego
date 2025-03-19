@@ -3,6 +3,8 @@ import { useQuery } from '@tanstack/react-query';
 import * as moneyMask from '@/utils/moneyMask';
 import { PrivateRoute } from '@/components/shared/PrivateRoute';
 import { useNavigate } from 'react-router-dom';
+import parse from "html-react-parser"
+import { Empty } from '@/components/shared/Empty';
 
 function ListJobAdvertComponent() {
   const { data: jobs, isLoading } = useQuery({
@@ -15,10 +17,10 @@ function ListJobAdvertComponent() {
 
   return (
     <section className="space-y-2">
-      {jobs?.map((job) => (
+      {jobs?.length ? jobs?.map((job) => (
         <div
-          className="rounded p-2 cursor-pointer"
-          key={job._id}
+          className="rounded p-2 px-[2rem] cursor-pointer"
+          key={job.id}
           style={{ boxShadow: '0 0 4px 0 rgba(0,0,0,0.3)' }}
           onClick={() => navigate(String(job._id))}
         >
@@ -26,11 +28,11 @@ function ListJobAdvertComponent() {
             <span>{job.title}</span>
             <span>{moneyMask.appy(job.remuneration || 0)}</span>
           </div>
-          <div className="flex justify-between">
-            <p className="text-sm text-[#828282]">{job.description}</p>
+          <div className="flex justify-between max-h-[10rem] overflow-hidden">
+            <p className="text-sm text-[#828282]">{parse(job.description)}</p>
           </div>
         </div>
-      ))}
+      )) : <Empty text='Não há vagas cadastradas.'/>}
     </section>
   );
 }

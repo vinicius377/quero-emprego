@@ -83,7 +83,7 @@ class Auth {
       name: business.responsableName,
       phoneNumber: business.phoneNumber,
       role: business.role,
-      id: business._id.toString(),
+      id: business._id,
     };
   }
 
@@ -94,7 +94,7 @@ class Auth {
       name: candidate.name,
       phoneNumber: candidate.phoneNumber,
       role: candidate.role,
-      id: candidate._id.toString(),
+      id: candidate._id,
     };
   }
 }

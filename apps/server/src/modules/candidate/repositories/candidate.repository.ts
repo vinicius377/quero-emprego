@@ -19,7 +19,7 @@ export class CandidateRepository {
       startDate: new Date(x.startDate).toISOString(),
     }));
 
-    return this.model.create({
+    const data = await this.model.create({
       name: dto.name,
       title: dto.title,
       password: dto.password,
@@ -29,14 +29,19 @@ export class CandidateRepository {
       education,
       experience,
     });
+
+    return data.toObject()
   }
 
   async findById(id: string) {
-    return this.model.findById(id);
+    const data = await this.model.findById(id)
+    return data?.toObject();
   }
 
   async findOne(params: Partial<Candidate>) {
-    return this.model.findOne(params)
+    const data = await this.model.findOne(params)
+
+    return data?.toObject()   
   }
 }
 

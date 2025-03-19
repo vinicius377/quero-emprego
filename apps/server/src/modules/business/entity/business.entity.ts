@@ -1,6 +1,7 @@
 import { model, Schema } from "mongoose";
 import { Business } from "./business.type";
 import { Role } from "#utils/role";
+import { randomUUID } from "node:crypto"
 
 const businessSchema = new Schema<Business>({
   businessName: {
@@ -37,6 +38,11 @@ const businessSchema = new Schema<Business>({
     enum: Role,
     default: Role.business,
   },
+  _id: {
+    type: String,
+    default: randomUUID(),
+    unique: true,
+  }
 });
 
 const businessCollectionName = "business";

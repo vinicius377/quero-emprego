@@ -8,7 +8,8 @@
   },
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "configs/*"
   ],
   "dependencies": {
     "superjson": "^2.2.2",

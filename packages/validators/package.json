@@ -2,8 +2,14 @@
   "name": "@packages/validators",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT", 
+  "license": "MIT",
   "dependencies": {
-    "@apps/server": "*"
-  }
+    "zod": "^3.24.2"
+  },
+  "files": [
+    "./auth/login.ts",
+    "./business/create-business.ts",
+    "./candidate/create-candidate.ts",
+    "./job/create-job-advert.ts"
+  ]
 }

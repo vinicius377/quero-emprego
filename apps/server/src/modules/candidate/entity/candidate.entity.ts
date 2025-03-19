@@ -1,6 +1,7 @@
 import { model, Schema } from "mongoose";
 import { Candidate } from "./candidate.type";
 import { Role } from "#utils/role";
+import { randomUUID } from "node:crypto";
 
 const experienceSchema = new Schema({
   roleName: { type: String, required: true },
@@ -30,6 +31,10 @@ const candidateSchema = new Schema<Candidate>({
     enum: Role,
     default: Role.candidate,
   },
+  _id: {
+    type: String,
+    default: randomUUID()
+  }
 });
 
 const candidateCollectionName = "candidate";

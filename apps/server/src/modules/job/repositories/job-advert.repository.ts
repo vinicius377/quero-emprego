@@ -18,7 +18,9 @@ export class JobAdvertRepository {
 
   async list(dto: PaginationDto) {
     const skip = dto.size * (dto.page - 1);
-    return this.model.find().limit(dto.size).skip(skip).populate("businessId");
+    const data = await this.model.find().limit(dto.size).skip(skip).populate("businessId");
+
+    return data.map(x => x.toObject())
   }
 
   async listByBusinessId(dto: PaginationDto, businessId: string) {
@@ -27,7 +29,8 @@ export class JobAdvertRepository {
   }
 
   async getById(id: string) {
-    return this.model.findById(id)
+    const data = await this.model.findById(id)
+    return data?.toObject()
   }
 }
 

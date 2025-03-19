@@ -1,19 +1,21 @@
 import { TRPCError } from "@trpc/server";
 import { ApplyJobDto } from "./dto/apply-job.dto";
 import { JobApplicationRepository, jobApplicationRepository } from "./repositories/job-application.repositoy";
+import { Candidate } from "#modules/candidate/entity/candidate.type";
+import { JobAdvert } from "./entity/job-advert.type";
 
 class JobApplicationService {
   constructor(
-    private repository: JobApplicationRepository 
-  ) {}
+    private repository: JobApplicationRepository
+  ) { }
 
   async apply(dto: ApplyJobDto, candidateId: string) {
     const applied = await this.repository.findByCandidateAndJobId(candidateId, dto.jobAdvertId)
 
     if (applied) {
-      throw new TRPCError({ message: "Emprego ja aplicado", code: "CONFLICT"})
+      throw new TRPCError({ message: "Emprego ja aplicado", code: "CONFLICT" })
     }
-    return this.repository.create(dto, candidateId) 
+    return this.repository.create(dto, candidateId)
   }
 
   async listByCandidate(candidateId: string) {
@@ -21,7 +23,11 @@ class JobApplicationService {
   }
 
   async listByJobAdvert(id: string) {
-    return this.repository.listByJobAdvert(id)
+    const data = await this.repository.listByJobAdvert(id)
+    return data.map(x => ({
+      ...x,
+      candidateId: x.candidateId as Candidate,
+    }))
   }
 }
 

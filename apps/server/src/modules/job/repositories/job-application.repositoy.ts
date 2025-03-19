@@ -14,21 +14,28 @@ export class JobApplicationRepository {
   }
 
   async listByCandidateId(candidateId: string) {
-    return this.model
+    const data = await this.model
       .find({ candidateId })
       .populate(["candidateId", "jobAdvertId"]);
+
+    return data.map(x => x.toObject())
   }
 
   async listByJobIdList(candidateId: string, jobsId: string[]) {
-    return this.model.find({ candidateId, jobAdvertId: { $in: jobsId } });
+    const data = await this.model.find({ candidateId, jobAdvertId: { $in: jobsId } });
+
+    return data.map(x => x.toObject())
   }
 
   async findByCandidateAndJobId(candidateId: string, jobId: string) {
-    return this.model.findOne({ candidateId, jobAdvertId: jobId })
+    const data = await this.model.findOne({ candidateId, jobAdvertId: jobId })
+
+    return data?.toObject()
   }
 
   async listByJobAdvert(id: string) {
-    return this.model.find({ jobAdvertId: id }).populate(["candidateId"])
+    const data = await this.model.find({ jobAdvertId: id }).populate(["candidateId"])
+    return data.map(x => x.toObject())
   }
 }
 

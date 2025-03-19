@@ -3,8 +3,8 @@ import { BusinessDocument } from "#modules/business/entity/business.type";
 import { PaginationDto } from "#utils/pagination";
 import { Role } from "#utils/role";
 import { CreateJobAdvertDto } from "./dto/create-job-advert.dto";
-import { JobAdvertDocument } from "./entity/job-advert.type";
-import { JobApplicationDocument } from "./entity/job-application.type";
+import { JobAdvert } from "./entity/job-advert.type";
+import { JobApplication } from "./entity/job-application.type";
 import {
   jobAdvertRepository,
   JobAdvertRepository,
@@ -13,7 +13,6 @@ import {
   jobApplicationRepository,
   JobApplicationRepository,
 } from "./repositories/job-application.repositoy";
-import { JobAdvertList } from "./types/job-advert-list.type";
 
 class JobAdvertService {
   constructor(
@@ -31,7 +30,7 @@ class JobAdvertService {
     const jobs = await this.repository.list(dto);
     const jobsId = jobs.map((x) => x._id.toString());
 
-    let jobsApplication: JobApplicationDocument[] = [];
+    let jobsApplication: JobApplication[] = [];
 
     if (user?.role === Role.candidate) {
       jobsApplication = await this.jobApplicationRepository.listByJobIdList(
@@ -40,7 +39,7 @@ class JobAdvertService {
       );
     }
 
-    const listJobs = jobs.map<JobAdvertList>(this.mapToList(jobsApplication));
+    const listJobs = jobs.map(this.mapToList(jobsApplication));
 
     return listJobs;
   }
@@ -53,20 +52,18 @@ class JobAdvertService {
     return this.repository.getById(id)
   }
 
-  private mapToList(jobsApplication: JobApplicationDocument[]) {
-    return (job: JobAdvertDocument): JobAdvertList => {
-      const data = job.toObject();
+  private mapToList(jobsApplication: JobApplication[]) {
+    return (job: JobAdvert) => {
+      const data = job 
       const applied = jobsApplication.some(
-        (x) => x.jobAdvertId.toString() === job._id.toString(),
+        (x) => x.jobAdvertId.toString() === job._id,
       );
+      const business = typeof data.businessId === "string" ? {} as BusinessDocument : data.businessId || {} as BusinessDocument
 
       return {
-        _id: job._id.toString(),
-        business: data.businessId as BusinessDocument,
         applied,
-        title: data.title,
-        description: data.description,
-        remuneration: data.remuneration
+        ...data,
+        businessId: business,
       };
     };
   }

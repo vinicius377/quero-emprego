@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 export function SignUp() {
 
   return (
-    <section>
+    <section className="max-w-[40rem] m-auto">
       <UserType />    
       <Outlet />
     </section>

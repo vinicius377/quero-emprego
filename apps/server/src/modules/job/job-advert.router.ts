@@ -1,7 +1,7 @@
 import { paginationValidator } from "#utils/pagination";
 import { z } from "zod";
 import { businessProcedure, publicProcedure } from "../../libs/trpc";
-import { createJobAdvertValidator } from "./dto/create-job-advert.dto";
+import { createJobAdvertValidator } from "@packages/validators/job/create-job-advert"
 import { jobAdvertService } from "./job-advert.service";
 
 export const jobAdvert = {

@@ -3,6 +3,7 @@ import { JobApplication } from "./job-application.type";
 import { Status } from "../utils/status";
 import { jobAdvertModel } from "./job-advert.entity";
 import { candidateModel } from "#modules/candidate/entity/candidate.entity";
+import { randomUUID } from "node:crypto";
 
 const jobApplication = new Schema<JobApplication>({
   status: {
@@ -17,6 +18,10 @@ const jobApplication = new Schema<JobApplication>({
   jobAdvertId: {
     ref: jobAdvertModel,
     type: String
+  },
+  _id: {
+    type: String,
+    default: randomUUID()
   }
 })
 

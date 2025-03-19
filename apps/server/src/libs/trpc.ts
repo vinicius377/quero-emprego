@@ -14,8 +14,23 @@ export async function createContext({ req, res }: CreateHTTPContextOptions) {
 }
 
 const t = initTRPC.context<typeof createContext>().create({
-    transformer: superjson
-});
+  transformer: superjson,
+  errorFormatter: (opts) => {
+    const { shape, error } = opts;
+    const isZodError = error.code === 'BAD_REQUEST' && error.cause instanceof ZodError
+
+    return {
+      ...shape,
+      data: {
+        ...shape.data,
+        zodError: isZodError
+          ? error.cause.flatten()
+          : null,
+      },
+      message: isZodError ? "Alguns campos não estão preenchidos corretamente" : shape.message
+    };
+  }
+})
 
 export const router = t.router;
 export const publicProcedure = t.procedure.use(async (opts) => {

@@ -5,12 +5,25 @@ import { trpc } from 'lib/trpc';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { createCandidateValidator } from '@packages/validators/candidate/create-candidate';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { DatePicker } from '@/components/ui/date-picker';
 
 type CreateCandidate = RouterInput['candidate']['create'];
 
 export function SignUpCandidate() {
   const navigate = useNavigate();
-  const { register, handleSubmit } = useForm<CreateCandidate>();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+    watch,
+  } = useForm({
+    resolver: zodResolver(createCandidateValidator),
+  });
+
+  console.log(watch());
 
   const onSubmit = async (data: CreateCandidate) => {
     try {
@@ -20,12 +33,10 @@ export function SignUpCandidate() {
         title: data.title,
         phoneNumber: data.phoneNumber,
         name: data.name,
-        birthDate: new Date(),
+        birthDate: data.birthDate,
       });
 
-      toast.success(
-        `Bem vindo ${createdCandidate.name}, faça o login`,
-      );
+      toast.success(`Bem vindo ${createdCandidate.name}, faça o login`);
       navigate('/login/empresa');
     } catch (e) {}
   };
@@ -34,17 +45,31 @@ export function SignUpCandidate() {
       <div>
         <h3 className="font-semibold">Dados pessoais</h3>
         <div className="space-y-2">
-          <Input {...register('name')} placeholder="Digite seu nome" />
           <Input
-            {...register('description')}
-            placeholder="Digite uma descrição"
+            {...register('name')}
+            error={errors.name?.message}
+            placeholder="Digite seu nome"
           />
-          <Input {...register('title')} placeholder="Digite um título" />
-          <Input {...register('password')} type="password" placeholder="Digite uma senha" />
-          <Input {...register('phoneNumber')} placeholder="Digite seu número" />
+          <Input
+            {...register('phoneNumber')}
+            error={errors.phoneNumber?.message}
+            placeholder="Digite seu número"
+          />
+          <Input
+            {...register('password')}
+            type="password"
+            placeholder="Digite uma senha"
+            error={errors.password?.message}
+          />
+          <DatePicker
+            selected={watch('birthDate')}
+            onSelect={(date) => setValue('birthDate', date as Date)}
+          />
         </div>
       </div>
-      <Button className="mt-2" type="submit">Criar</Button>
+      <Button className="mt-2" type="submit">
+        Criar
+      </Button>
     </form>
   );
 }

@@ -7,6 +7,7 @@ export interface JobApplication {
   candidateId: string | CandidateDocument
   jobAdvertId: string | JobAdvertDocument 
   status: Status
+  _id: string
 }
 
 export type JobApplicationDocument = HydratedDocument<JobApplication>

@@ -6,6 +6,6 @@ export interface JobAdvert {
   description: string;
   remuneration?: number
   businessId: string | BusinessDocument;
+  _id: string
 }
 
-export type JobAdvertDocument = HydratedDocument<JobAdvert>

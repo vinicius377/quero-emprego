@@ -64,7 +64,7 @@ export function JobsAdverts() {
               <div className="w-full">
                 <div className="flex justify-between">
                   <h3>{job.title}</h3>
-                  <span>{moneyMask.appy(job.remuneration || 0)}</span>
+                  <span>{moneyMask.apply(job.remuneration || 0)}</span>
                 </div>
                 <p
                   className={twMerge(

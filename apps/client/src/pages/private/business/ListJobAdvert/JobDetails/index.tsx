@@ -1,10 +1,14 @@
 import { PrivateRoute } from '@/components/shared/PrivateRoute';
 import { trpc } from '@/lib/trpc';
-import { useQueries, useQuery } from '@tanstack/react-query';
+import { useQueries } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as moneyMask from '@/utils/moneyMask';
 import parse from 'html-react-parser';
+import { Role, StatusJob } from '@packages/types/enums';
+import { StatusJobUtils } from '@/utils/status';
+import { PencilLine } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 function JobDetailsComponent() {
   const { id } = useParams();
@@ -26,6 +30,7 @@ function JobDetailsComponent() {
       },
     ],
   });
+  const currentStatus = StatusJobUtils[job?.status ?? StatusJob.opened]
 
   useEffect(() => {
     if (!id) {
@@ -44,13 +49,24 @@ function JobDetailsComponent() {
       >
         <div className="flex justify-between">
           <span>{job.title}</span>
-          <span>{moneyMask.appy(job.remuneration || 0)}</span>
+          <span>{moneyMask.apply(job.remuneration || 0)}</span>
         </div>
         <div className="flex justify-between max-h-60 overflow-auto">
           <p className="text-sm text-[#828282]">{parse(job.description)}</p>
         </div>
-        <div>
+        <div className="flex justify-between">
+          <div className="flex gap-2 items-center">
+            <div className='w-4 h-4 rounded-[50%]' style={{ background: currentStatus.color }}></div>
+            <span>{currentStatus.label}</span>
+          </div>
+          <Button onClick={() => navigate("editar")}>
+            <div className='flex gap-2'>
+              Editar
+              <PencilLine />
+            </div>
+          </Button>
         </div>
+
       </div>
       <section>
         {applications.map((x) => (
@@ -67,7 +83,7 @@ function JobDetailsComponent() {
 }
 
 export const JobDetails = (
-  <PrivateRoute role="business">
+  <PrivateRoute role={Role.business}>
     <JobDetailsComponent />
   </PrivateRoute>
 );

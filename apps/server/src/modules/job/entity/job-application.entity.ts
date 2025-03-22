@@ -3,13 +3,13 @@ import { JobApplication } from "./job-application.type";
 import { jobAdvertModel } from "./job-advert.entity";
 import { candidateModel } from "#modules/candidate/entity/candidate.entity";
 import { randomUUID } from "node:crypto";
-import { StatusApplication } from "@packages/types/enums/index";
+import { StatusApplication } from "@packages/types/enums";
 
 const jobApplication = new Schema<JobApplication>({
   status: {
     enum: StatusApplication,
     default: StatusApplication.pending,
-    type: String
+    type: String,
   },
   candidateId: {
     ref: candidateModel,
@@ -17,13 +17,16 @@ const jobApplication = new Schema<JobApplication>({
   },
   jobAdvertId: {
     ref: jobAdvertModel,
-    type: String
+    type: String,
   },
   _id: {
     type: String,
-    default: randomUUID()
-  }
-})
+    default: randomUUID(),
+  },
+});
 
-const jobApplicationCollectionName = "job-application"
-export const jobApplicationModel = model(jobApplicationCollectionName, jobApplication)
+const jobApplicationCollectionName = "job-application";
+export const jobApplicationModel = model(
+  jobApplicationCollectionName,
+  jobApplication
+);

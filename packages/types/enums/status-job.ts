@@ -1,6 +1,6 @@
 export enum StatusJob {
   canceled = "canceled",
-  openend = "opened",
+  opened = "opened",
   done = "done",
-  close = "close"
+  close = "close",
 }

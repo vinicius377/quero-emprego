@@ -1,7 +1,7 @@
 import { model, Schema } from "mongoose";
 import { Business } from "./business.type";
-import { Role } from "#utils/role";
-import { randomUUID } from "node:crypto"
+import { randomUUID } from "node:crypto";
+import { Role } from "@packages/types/enums";
 
 const businessSchema = new Schema<Business>({
   businessName: {
@@ -42,11 +42,11 @@ const businessSchema = new Schema<Business>({
     type: String,
     default: randomUUID(),
     unique: true,
-  }
+  },
 });
 
 const businessCollectionName = "business";
-businessSchema.pre("find", function(next) {
+businessSchema.pre("find", function (next) {
   this.select("-password");
   next();
 });

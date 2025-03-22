@@ -18,7 +18,7 @@
     "mongoose": "^8.10.2",
     "winston": "^3.17.0",
     "zod": "^3.24.2",
-    "@packages/validators": "*"
+    "@packages/validators": "*",
     "@packages/types": "*"
   },
   "devDependencies": {

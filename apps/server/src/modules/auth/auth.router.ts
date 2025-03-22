@@ -1,7 +1,7 @@
 import { serialize } from "cookie";
 import { publicProcedure } from "../../libs/trpc";
 import { authService } from "./auth.service";
-import { loginValidator } from '@packages/validators/auth/login'
+import { loginValidator } from "@packages/validators/auth/login";
 
 export const auth = {
   businessLogin: publicProcedure
@@ -14,7 +14,7 @@ export const auth = {
           httpOnly: true,
           expires: payload.expires,
           secure: true,
-        }),
+        })
       );
 
       return payload;
@@ -29,7 +29,7 @@ export const auth = {
           httpOnly: true,
           expires: payload.expires,
           secure: true,
-        }),
+        })
       );
 
       return payload;

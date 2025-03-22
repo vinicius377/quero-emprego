@@ -5,6 +5,7 @@ import { PrivateRoute } from '@/components/shared/PrivateRoute';
 import { useNavigate } from 'react-router-dom';
 import parse from "html-react-parser"
 import { Empty } from '@/components/shared/Empty';
+import { Role } from '@packages/types/enums';
 
 function ListJobAdvertComponent() {
   const { data: jobs, isLoading } = useQuery({
@@ -26,19 +27,19 @@ function ListJobAdvertComponent() {
         >
           <div className="flex justify-between">
             <span>{job.title}</span>
-            <span>{moneyMask.appy(job.remuneration || 0)}</span>
+            <span>{moneyMask.apply(job.remuneration || 0)}</span>
           </div>
           <div className="flex justify-between max-h-[10rem] overflow-hidden">
             <p className="text-sm text-[#828282]">{parse(job.description)}</p>
           </div>
         </div>
-      )) : <Empty text='Não há vagas cadastradas.'/>}
+      )) : <Empty text='Não há vagas cadastradas.' />}
     </section>
   );
 }
 
 export const ListJobAdvert = (
-  <PrivateRoute role="business">
+  <PrivateRoute role={Role.business}>
     <ListJobAdvertComponent />
   </PrivateRoute>
 );

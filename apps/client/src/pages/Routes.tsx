@@ -9,6 +9,7 @@ import { CreateJobAdvert } from './private/business/CreateJobAdvert';
 import { JobsAdverts } from './public/JobAdverts';
 import { ListJobAdvert } from './private/business/ListJobAdvert';
 import { JobDetails } from './private/business/ListJobAdvert/JobDetails';
+import { EditJob } from './private/business/ListJobAdvert/JobDetails/EditJob';
 
 export function RoutePages() {
   return (
@@ -25,6 +26,7 @@ export function RoutePages() {
       <Route path="criar-emprego" element={CreateJobAdvert} />
       <Route path="listar-empregos" element={ListJobAdvert} />
       <Route path="listar-empregos/:id" element={JobDetails} />
+      <Route path="listar-empregos/:id/editar" element={EditJob} />
     </Routes>
   );
 }

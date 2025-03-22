@@ -38,7 +38,7 @@ export function SignUpCandidate() {
 
       toast.success(`Bem vindo ${createdCandidate.name}, faça o login`);
       navigate('/login/empresa');
-    } catch (e) {}
+    } catch (e) { }
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

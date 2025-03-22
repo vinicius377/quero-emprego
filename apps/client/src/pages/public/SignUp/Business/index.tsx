@@ -44,7 +44,7 @@ export function SignUpBusiness() {
         `Bem vindo ${createdBusiness.responsableName}, faça o login`,
       );
       navigate('/login/empresa');
-    } catch (e) {}
+    } catch (e) { }
   };
 
   return (
@@ -95,9 +95,9 @@ export function SignUpBusiness() {
             />
           </div>
           <div className="flex gap-2">
-            <Input styleField={{ flex: 2}} {...register('location.postalCode')} disabled />
-            <Input styleField={{ flex: 2}} {...register('location.city')} disabled />
-            <Input styleField={{ flex: 1}} {...register('location.state')} disabled />
+            <Input styleField={{ flex: 2 }} {...register('location.postalCode')} disabled />
+            <Input styleField={{ flex: 2 }} {...register('location.city')} disabled />
+            <Input styleField={{ flex: 1 }} {...register('location.state')} disabled />
           </div>
         </div>
       </div>

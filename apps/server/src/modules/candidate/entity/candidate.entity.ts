@@ -1,7 +1,7 @@
 import { model, Schema } from "mongoose";
 import { Candidate } from "./candidate.type";
-import { Role } from "#utils/role";
 import { randomUUID } from "node:crypto";
+import { Role } from "@packages/types/enums";
 
 const experienceSchema = new Schema({
   roleName: { type: String, required: true },
@@ -33,12 +33,12 @@ const candidateSchema = new Schema<Candidate>({
   },
   _id: {
     type: String,
-    default: randomUUID()
-  }
+    default: randomUUID(),
+  },
 });
 
 const candidateCollectionName = "candidate";
-candidateSchema.pre("find", function(next) {
+candidateSchema.pre("find", function (next) {
   this.select("-password");
   next();
 });

@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { businessProcedure, publicProcedure } from "../../libs/trpc";
 import { businessService } from "./business.service";
-import { createBusinessValidator } from "@packages/validators/business/create-business"
+import { createBusinessValidator } from "@packages/validators/business/create-business";
 
 const business = {
   create: publicProcedure
@@ -10,8 +10,7 @@ const business = {
   getById: publicProcedure
     .input(z.string())
     .query(({ input: id }) => businessService.getById(id)),
-  edit: businessProcedure
-    .mutation(() => console.log("aqui"))
+  edit: businessProcedure.mutation(() => console.log("aqui")),
 };
 
 export { business };

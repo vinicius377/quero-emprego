@@ -1,31 +1,31 @@
-import { Role } from "#utils/role"
-import { HydratedDocument } from "mongoose"
+import { Role } from "@packages/types/enums";
+import { HydratedDocument } from "mongoose";
 
 interface Education {
-  courseName: string
-  instituition: string
-  startDate: Date
-  endDate: Date
+  courseName: string;
+  institution: string;
+  startDate: Date;
+  endDate: Date;
 }
 
 interface Experience {
-  roleName: string
-  startDate: Date
-  endDate: Date
-  description: string 
+  roleName: string;
+  startDate: Date;
+  endDate: Date;
+  description: string;
 }
 
 export interface Candidate {
-  name: string 
-  title: string
-  birthDate: Date
-  description: string
-  phoneNumber: number
-  password: string
-  experience: Experience[]
-  education: Education[]
-  role: Role.candidate
-  _id: string
+  name: string;
+  title: string;
+  birthDate: Date;
+  description: string;
+  phoneNumber: number;
+  password: string;
+  experience: Experience[];
+  education: Education[];
+  role: Role.candidate;
+  _id: string;
 }
 
-export type CandidateDocument = HydratedDocument<Candidate>
+export type CandidateDocument = HydratedDocument<Candidate>;

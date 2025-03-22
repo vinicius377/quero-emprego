@@ -9,12 +9,13 @@ import { useRef } from 'react';
 import { toast } from 'react-toastify';
 import { createJobAdvertValidator } from "@packages/validators/job/create-job-advert"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Role } from '@packages/types/enums';
 
 type CreateJobInput = RouterInput['jobAdvert']['create'];
 
 function CreateJobAdvertComponent() {
   const editor = useRef(null);
-  const { register, handleSubmit, watch, setValue, reset } = useForm({
+  const { register, handleSubmit, watch, setValue, reset, formState: { isSubmitting } } = useForm({
     resolver: zodResolver(createJobAdvertValidator)
   });
 
@@ -49,14 +50,14 @@ function CreateJobAdvertComponent() {
           value={watch('description')}
           onChange={(newContent) => setValue('description', newContent)}
         />
-        <Button type="submit">Criar</Button>
+        <Button disabled={isSubmitting} type="submit">Criar</Button>
       </form>
     </section>
   );
 }
 
 export const CreateJobAdvert = (
-  <PrivateRoute role="business">
+  <PrivateRoute role={Role.business}>
     <CreateJobAdvertComponent />{' '}
   </PrivateRoute>
 );

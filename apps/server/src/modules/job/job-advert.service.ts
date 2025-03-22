@@ -1,7 +1,7 @@
 import { TokenData } from "#modules/auth/types/token";
 import { BusinessDocument } from "#modules/business/entity/business.type";
 import { PaginationDto } from "#utils/pagination";
-import { Role } from "@packages/types/enums/index";
+import { Role } from "@packages/types/enums";
 import { CreateJobAdvertDto } from "./dto/create-job-advert.dto";
 import { JobAdvert } from "./entity/job-advert.type";
 import { JobApplication } from "./entity/job-application.type";
@@ -12,13 +12,14 @@ import {
 import {
   jobApplicationRepository,
   JobApplicationRepository,
-} from "./repositories/job-application.repositoy";
+} from "./repositories/job-application.repository";
+import { UpdateJobAdvertDto } from "./dto/update-job-advert.dto";
 
 class JobAdvertService {
   constructor(
     private repository: JobAdvertRepository,
-    private jobApplicationRepository: JobApplicationRepository,
-  ) { }
+    private jobApplicationRepository: JobApplicationRepository
+  ) {}
 
   async create(dto: CreateJobAdvertDto, businessId: string) {
     const createdJobAdvert = await this.repository.create(dto, businessId);
@@ -35,7 +36,7 @@ class JobAdvertService {
     if (user?.role === Role.candidate) {
       jobsApplication = await this.jobApplicationRepository.listByJobIdList(
         user.id,
-        jobsId,
+        jobsId
       );
     }
 
@@ -45,24 +46,27 @@ class JobAdvertService {
   }
 
   async listByBusiness(params: PaginationDto, businessId: string) {
-    return this.repository.listByBusinessId(params, businessId)
+    return this.repository.listByBusinessId(params, businessId);
   }
 
   async getById(id: string) {
-    return this.repository.getById(id)
+    return this.repository.getById(id);
   }
 
-  async changeStatus() {
-    
+  async edit(dto: UpdateJobAdvertDto, businessId: string) {
+    return this.repository.update(dto, businessId);
   }
 
   private mapToList(jobsApplication: JobApplication[]) {
     return (job: JobAdvert) => {
-      const data = job 
+      const data = job;
       const applied = jobsApplication.some(
-        (x) => x.jobAdvertId.toString() === job._id,
+        (x) => x.jobAdvertId.toString() === job._id
       );
-      const business = typeof data.businessId === "string" ? {} as BusinessDocument : data.businessId || {} as BusinessDocument
+      const business =
+        typeof data.businessId === "string"
+          ? ({} as BusinessDocument)
+          : data.businessId || ({} as BusinessDocument);
 
       return {
         applied,
@@ -75,5 +79,5 @@ class JobAdvertService {
 
 export const jobAdvertService = new JobAdvertService(
   jobAdvertRepository,
-  jobApplicationRepository,
+  jobApplicationRepository
 );

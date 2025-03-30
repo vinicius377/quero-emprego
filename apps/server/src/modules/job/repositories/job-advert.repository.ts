@@ -6,7 +6,7 @@ import { PaginationDto } from "#utils/pagination";
 import { UpdateJobAdvertDto } from "../dto/update-job-advert.dto";
 
 export class JobAdvertRepository {
-  constructor(private model: Model<JobAdvert>) {}
+  constructor(private model: Model<JobAdvert>) { }
 
   async create(dto: CreateJobAdvertDto, businessId: string) {
     return this.model.create({
@@ -20,7 +20,7 @@ export class JobAdvertRepository {
   async list(dto: PaginationDto) {
     const skip = dto.size * (dto.page - 1);
     const data = await this.model
-      .find()
+      .find({ title: { $regex: `.*${dto.term}.*`, $options: 'i' } })
       .limit(dto.size)
       .skip(skip)
       .populate("businessId");

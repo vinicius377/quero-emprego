@@ -13,6 +13,7 @@ interface Experience {
   startDate: Date;
   endDate: Date;
   description: string;
+  businessName: string
 }
 
 export interface Candidate {

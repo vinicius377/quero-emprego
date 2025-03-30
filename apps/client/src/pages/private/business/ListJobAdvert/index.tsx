@@ -21,9 +21,9 @@ function ListJobAdvertComponent() {
       {jobs?.length ? jobs?.map((job) => (
         <div
           className="rounded p-2 px-[2rem] cursor-pointer"
-          key={job.id}
+          key={job._id}
           style={{ boxShadow: '0 0 4px 0 rgba(0,0,0,0.3)' }}
-          onClick={() => navigate(String(job._id))}
+          onClick={() => navigate(String(job._id), { state: job })}
         >
           <div className="flex justify-between">
             <span>{job.title}</span>

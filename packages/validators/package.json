@@ -11,6 +11,7 @@
     "./auth/login.ts",
     "./business/create-business.ts",
     "./candidate/create-candidate.ts",
+    "./candidate/update-candidate.ts",
     "./job/create-job-advert.ts",
     "./job/update-job-advert.ts"
   ]

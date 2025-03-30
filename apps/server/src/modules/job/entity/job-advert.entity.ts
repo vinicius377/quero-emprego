@@ -30,7 +30,7 @@ const jobAdvert = new Schema<JobAdvert>({
     type: String,
     default: randomUUID(),
   },
-});
+}, { timestamps: true });
 
 const jobAdvertCollectionName = "job-advert";
 export const jobAdvertModel = model(jobAdvertCollectionName, jobAdvert);

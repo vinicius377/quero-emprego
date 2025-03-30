@@ -23,7 +23,7 @@ const jobApplication = new Schema<JobApplication>({
     type: String,
     default: randomUUID(),
   },
-});
+}, { timestamps: true });
 
 const jobApplicationCollectionName = "job-application";
 export const jobApplicationModel = model(

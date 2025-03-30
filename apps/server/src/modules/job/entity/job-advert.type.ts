@@ -9,6 +9,8 @@ export interface JobAdvert {
   businessId: string | BusinessDocument;
   _id: string;
   status: StatusJob;
+  createdAt: Date;
+  updatedAt: Date
 }
 
 export type JobAdvertDocument = HydratedDocument<JobAdvert>;

@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { createCandidateValidator } from '@packages/validators/candidate/create-candidate';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { DatePicker } from '@/components/ui/date-picker';
+import { useMemo } from 'react';
 
 type CreateCandidate = RouterInput['candidate']['create'];
 
@@ -22,15 +23,17 @@ export function SignUpCandidate() {
   } = useForm({
     resolver: zodResolver(createCandidateValidator),
   });
-
-  console.log(watch());
+  const limitBirthDate = useMemo(() => {
+    const date = new Date()
+    const yearsToJob = 16
+    date.setFullYear(date.getFullYear() - yearsToJob)
+    return date
+  }, [])
 
   const onSubmit = async (data: CreateCandidate) => {
     try {
       const createdCandidate = await trpc.candidate.create.mutate({
         password: data.password,
-        description: data.description,
-        title: data.title,
         phoneNumber: data.phoneNumber,
         name: data.name,
         birthDate: data.birthDate,
@@ -62,6 +65,8 @@ export function SignUpCandidate() {
             error={errors.password?.message}
           />
           <DatePicker
+            title="Data de nascimento"
+            // limiteAfter={limitBirthDate}
             selected={watch('birthDate')}
             onSelect={(date) => setValue('birthDate', date as Date)}
           />

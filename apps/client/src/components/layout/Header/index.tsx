@@ -15,7 +15,7 @@ export function Header() {
         onClick={() => navigate('/')}
       >
         <h1 className="cursor-pointer relative font-semibold">
-          Quero <span className="text-[#89BD23] font-extrabold">emprego!</span>
+          Quero <span className="text-blue font-extrabold">emprego!</span>
         </h1>
         <span className="font-semibold ml-auto -mr-1">Mucambo</span>
       </div>

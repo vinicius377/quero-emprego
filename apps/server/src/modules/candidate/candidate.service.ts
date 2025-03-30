@@ -1,23 +1,37 @@
 import { CreateCandidateDto } from "./dto/create-candidate.dto";
-import { candidateRepository, CandidateRepository } from "./repositories/candidate.repository";
+import {
+  candidateRepository,
+  CandidateRepository,
+} from "./repositories/candidate.repository";
 import { bcryptService, BcryptService } from "#services/bcrypt.service";
-import { PaginationDto } from "#utils/pagination";
+import { UpdateCandidateDto } from "./dto/update-candidate.dto";
 
 class CandidateService {
   constructor(
     private repository: CandidateRepository,
-    private bcryptService: BcryptService
+    private bcryptService: BcryptService,
   ) {}
 
   async create(body: CreateCandidateDto) {
-    const password = await this.bcryptService.criptPassword(body.password)
+    const password = await this.bcryptService.criptPassword(body.password);
     const createdCandidate = await this.repository.create({
       ...body,
-      password
-    })
+      password,
+    });
 
-    return createdCandidate
+    return createdCandidate;
+  }
+
+  async getById(id: string) {
+    return this.repository.findById(id);
+  }
+
+  async edit(dto: UpdateCandidateDto, id: string) {
+    return this.repository.update(dto, id);
   }
 }
 
-export const candidateService = new CandidateService(candidateRepository, bcryptService)
+export const candidateService = new CandidateService(
+  candidateRepository,
+  bcryptService,
+);

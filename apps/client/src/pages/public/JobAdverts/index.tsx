@@ -6,94 +6,108 @@ import * as moneyMask from '@/utils/moneyMask';
 import { Button } from '@/components/ui/button';
 import { userService } from '@/services/user.service';
 import { useAtomValue } from 'jotai';
-import { Image } from 'lucide-react';
+import { Image, Search } from 'lucide-react';
 import styles from './styles.module.css';
 import { twMerge } from 'tailwind-merge';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Empty } from '@/components/shared/Empty';
 import parse from 'html-react-parser';
+import { Role } from '@packages/types/enums';
+import { Input } from '@/components/ui/input';
+import { useDebounce } from '@/hooks/Debounce';
+import { format } from 'date-fns';
+import { ButtonApplication } from './components/ButtonApplication';
 
 export function JobsAdverts() {
-  const {
-    data: jobs,
-    isLoading,
-    refetch,
-  } = useQuery({
-    queryKey: ['job-advert'],
-    queryFn: () => trpc.jobAdvert.list.query({ page: 1, size: 10 }),
-  });
-  const [opened, setOpened] = useState('');
-  const navigate = useNavigate();
-  const user = useAtomValue(userService.user);
+	const [search, setSearch] = useState('');
+	const {
+		data: jobs,
+		isLoading,
+    refetch
+	} = useQuery({
+		queryKey: ['job-advert-list'],
+		queryFn: () =>
+			trpc.jobAdvert.list.query({ page: 1, size: 10, term: search }),
+	});
+	const [opened, setOpened] = useState('');
+	const user = useAtomValue(userService.user);
+	const searchHandler = useDebounce(() => refetch(), 500);
 
-  if (isLoading || !jobs) return <div>Carregando</div>;
+	useEffect(() => {
+		searchHandler(search);
+	}, [search]);
 
-  const applyToJob = (id: string) => async () => {
-    try {
-      await trpc.jobApplication.apply.mutate({
-        jobAdvertId: id,
-      });
-      refetch();
-    } catch (e) {
-      if (e.message === 'Token invalido') {
-        navigate('/login/candidato');
-      }
-      toast.error(e.message);
-    }
-  };
+	const onOpenedDescripton = (jobId: string) => () => {
+		const job = jobId === opened ? '' : jobId;
+		setOpened(job);
+	};
 
-  const onOpenedDescripton = (jobId: string) => () => {
-    const job = jobId === opened ? '' : jobId;
-    setOpened(job);
-  };
+	if (isLoading || !jobs) return <div>Carregando</div>;
 
-  return (
-    <section className="space-y-2">
-      {jobs.length ? (
-        jobs?.map((job) => (
-          <div
-            className="rounded p-2 min-h-[8rem]"
-            key={job._id}
-            style={{ boxShadow: '0 0 4px 0 rgba(0,0,0,0.3)' }}
-          >
-            <div className="flex gap-2">
-              <div>
-                <Image size={60} color="#c4c4c4" />
-                <h3 className="text-center">{job.businessId?.businessName}</h3>
-              </div>
-              <div className="w-full">
-                <div className="flex justify-between">
-                  <h3>{job.title}</h3>
-                  <span>{moneyMask.apply(job.remuneration || 0)}</span>
-                </div>
-                <p
-                  className={twMerge(
-                    'text-sm text-[#828282] overflow-auto max-h-[20rem] cursor-pointer',
-                    opened === job._id ? '' : styles.description,
-                  )}
-                  onClick={onOpenedDescripton(job._id)}
-                >
-                  {parse(job.description)}
-                </p>
-                {user?.role === 'candidate' && (
-                  <div className="flex w-full">
-                    <Button
-                      disabled={job.applied}
-                      type="button"
-                      onClick={applyToJob(job._id)}
-                      className="ml-auto mt-auto cursor-pointer"
-                    >
-                      {job.applied ? 'Aplicado' : 'Aplicar'}
-                    </Button>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        ))
-      ) : (
-        <Empty text="Não há vagas." />
-      )}
-    </section>
-  );
+	return (
+		<section className="space-y-2">
+			<Input
+				placeholder="O que você procura?"
+				icons={{
+					Left: <Search color="#c4c4c4" />,
+				}}
+				value={search}
+				onChange={(e) => setSearch(e.currentTarget.value)}
+			/>
+			{jobs.length ? (
+				jobs?.map((job) => (
+					<div
+						className="rounded bg-white p-2 min-h-[8rem]"
+						key={job._id}
+						style={{ boxShadow: '0 0 4px 0 rgba(0,0,0,0.3)' }}
+					>
+						<div className="flex gap-2">
+							<div className="flex flex-col items-center">
+								<Image size={60} color="#c4c4c4" />
+								<h3 className="text-center">{job.businessId?.businessName}</h3>
+								{job.createdAt && (
+									<span className="italic font-light text-xs text-center">
+										{format(job.createdAt, "dd/MM/yyyy ' ás ' HH:mm")}
+									</span>
+								)}
+							</div>
+							<div className="w-full">
+								<div className="flex justify-between">
+									<h3>{job.title}</h3>
+									<span>{moneyMask.apply(job.remuneration || 0)}</span>
+								</div>
+								<div
+									onClick={onOpenedDescripton(job._id)}
+									className=" cursor-pointer"
+								>
+									<p
+										className={twMerge(
+											'text-sm text-[#828282] overflow-auto max-h-[20rem]',
+											opened === job._id ? '' : styles.description,
+										)}
+									>
+										{parse(job.description)}
+									</p>
+									<span className="text-sm text-zinc-400">
+										{opened === job._id ? 'Ler menos' : 'Ler mais'}
+									</span>
+								</div>
+								<ButtonApplication
+									user={user}
+									job={job}
+                  onDone={refetch}
+								/>
+							</div>
+						</div>
+					</div>
+				))
+			) : (
+				<Empty
+					text={
+						search.length ? `Não há vagas para '${search}'.` : 'Não há vagas.'
+					}
+				/>
+			)}
+		</section>
+	);
 }

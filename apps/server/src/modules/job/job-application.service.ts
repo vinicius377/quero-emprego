@@ -5,10 +5,14 @@ import {
   jobApplicationRepository,
 } from "./repositories/job-application.repository";
 import { Candidate } from "#modules/candidate/entity/candidate.type";
-import { JobAdvert } from "./entity/job-advert.type";
+import { JobAdvertRepository } from "./repositories/job-advert.repository";
+import { StatusJob } from "@packages/types/enums";
 
 class JobApplicationService {
-  constructor(private repository: JobApplicationRepository) {}
+  constructor(
+    private repository: JobApplicationRepository,
+    private jobAdvertRepository: JobAdvertRepository
+  ) { }
 
   async apply(dto: ApplyJobDto, candidateId: string) {
     const applied = await this.repository.findByCandidateAndJobId(
@@ -19,6 +23,12 @@ class JobApplicationService {
     if (applied) {
       throw new TRPCError({ message: "Emprego ja aplicado", code: "CONFLICT" });
     }
+    const jobAdvert = await this.jobAdvertRepository.getById(dto.jobAdvertId)
+
+    if (jobAdvert?.status !== StatusJob.opened) {
+      throw new TRPCError({ message: "Essa vaga não aceita mais candidatos", code: "CONFLICT" });
+    }
+
     return this.repository.create(dto, candidateId);
   }
 

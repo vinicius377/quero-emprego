@@ -5,27 +5,28 @@ import { Role } from "@packages/types/enums";
 
 const experienceSchema = new Schema({
   roleName: { type: String, required: true },
+  businessName: { type: String, required: true},
   startDate: { type: Date, required: true },
   endDate: { type: Date },
   description: { type: String },
 });
 
-const edutationSchema = new Schema({
+const educationSchema = new Schema({
   courseName: { type: String, required: true },
-  instituition: { type: String, required: true },
+  institution: { type: String, required: true },
   startDate: { type: Date },
   endDate: { type: Date },
 });
 
 const candidateSchema = new Schema<Candidate>({
   name: { type: String, required: true },
-  title: { type: String },
+  title: { type: String, default: "" },
   birthDate: { type: Date, required: true },
-  description: { type: String },
+  description: { type: String, default: "" },
   phoneNumber: { type: Number },
   password: { type: String, required: true },
   experience: { type: [experienceSchema], default: [] },
-  education: { type: [edutationSchema], default: [] },
+  education: { type: [educationSchema], default: [] },
   role: {
     type: String,
     enum: Role,
@@ -35,7 +36,7 @@ const candidateSchema = new Schema<Candidate>({
     type: String,
     default: randomUUID(),
   },
-});
+}, { timestamps: true});
 
 const candidateCollectionName = "candidate";
 candidateSchema.pre("find", function (next) {

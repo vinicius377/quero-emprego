@@ -44,13 +44,15 @@ export function SignUpBusiness() {
         `Bem vindo ${createdBusiness.responsableName}, faça o login`,
       );
       navigate('/login/empresa');
-    } catch (e) { }
+    } catch (e) {
+      toast.error(e.message)
+    }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <h3 className="font-medium">Dados</h3>
+        <h3 className="font-semibold">Dados</h3>
         <div className="space-y-2 ml-2">
           <Input
             placeholder="Digite o nome da sua empresa"
@@ -75,7 +77,7 @@ export function SignUpBusiness() {
         </div>
       </div>
       <div className="my-2">
-        <h3 className="font-medium">Endereço</h3>
+        <h3 className="font-semibold">Endereço</h3>
         <div className="space-y-2 ml-2">
           <Input
             {...register('location.address')}

@@ -1,0 +1,6 @@
+
+.navActived > div {
+  background: color-mix(in oklab, var(--color-blue) 40%, transparent); 
+  border: solid 1px var(--color-blue);
+  border-radius:4px;
+}

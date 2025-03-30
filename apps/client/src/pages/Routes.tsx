@@ -10,6 +10,8 @@ import { JobsAdverts } from './public/JobAdverts';
 import { ListJobAdvert } from './private/business/ListJobAdvert';
 import { JobDetails } from './private/business/ListJobAdvert/JobDetails';
 import { EditJob } from './private/business/ListJobAdvert/JobDetails/EditJob';
+import { Profile } from './private/candidate/Profile';
+import { Candidate } from './private/business/ListJobAdvert/JobDetails/Candidate';
 
 export function RoutePages() {
   return (
@@ -27,6 +29,8 @@ export function RoutePages() {
       <Route path="listar-empregos" element={ListJobAdvert} />
       <Route path="listar-empregos/:id" element={JobDetails} />
       <Route path="listar-empregos/:id/editar" element={EditJob} />
+      <Route path="listar-empregos/:id/candidato/:id" element={Candidate} />
+      <Route path="perfil" element={Profile} />
     </Routes>
   );
 }

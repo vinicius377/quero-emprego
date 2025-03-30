@@ -14,6 +14,7 @@ class BusinessService {
 
   async create(body: CreateBusinessDto) {
     await this.verifyPhoneNumberIsUsed(body.phoneNumber)
+    await this.verifyCNPJIsUsed(body.cnpj)
 
     const password = await this.bcryptService.criptPassword(body.password);
     const createdBusiness = await this.repository.create({
@@ -29,9 +30,15 @@ class BusinessService {
   }
 
   private async verifyPhoneNumberIsUsed(phoneNumber: number) {
-    const alreadyExist = await this.repository.findOne({ phoneNumber: phoneNumber })
+    const alreadyExist = await this.repository.findOne({ phoneNumber })
 
     if (alreadyExist) throw new TRPCError({ message: "Já existe um usuário com esse número", code: "CONFLICT" })
+  }
+
+  private async verifyCNPJIsUsed(cnpj: number){
+    const alreadyExist = await this.repository.findOne({ cnpj: String(cnpj) })
+
+    if (alreadyExist) throw new TRPCError({ message: "Já existe um usuário com esse CNPJ", code: "CONFLICT" })
   }
 }
 

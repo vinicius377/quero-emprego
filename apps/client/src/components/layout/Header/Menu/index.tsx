@@ -6,6 +6,7 @@ import {
   MenubarTrigger,
 } from '@/components/ui/menubar';
 import { trpc } from '@/lib/trpc';
+import { Role } from '@packages/types/enums';
 import { useAtomValue } from 'jotai';
 import { Link } from 'react-router-dom';
 import { userService } from 'services/user.service';
@@ -34,9 +35,10 @@ export function MenuUser() {
         <MenubarTrigger>{user.name.split(' ')[0]}</MenubarTrigger>
         <MenubarContent>
           <div className="hidden md:block">
-            {user.role === 'business' ? (
+            {user.role === Role.business && (
               <BusinessOptions />
-            ) : (
+            )}
+            {user.role === Role.candidate && (
               <CandidateOptions />
             )}
           </div>
@@ -51,10 +53,10 @@ const BusinessOptions = () => {
   return (
     <>
       <MenubarItem>
-        <Link to="/criar-emprego">Criar emprego</Link>
+        <Link className="w-full h-full" to="/criar-emprego">Criar post</Link>
       </MenubarItem>
       <MenubarItem>
-        <Link to="/listar-empregos">Listar empregos</Link>
+        <Link className="w-full h-full" to="/listar-empregos">Listar posts</Link>
       </MenubarItem>
     </>
   );
@@ -64,7 +66,7 @@ const CandidateOptions = () => {
   return (
     <>
       <MenubarItem>
-        <Link to="/criar-emprego">Perfil</Link>
+        <Link className="w-full h-full" to="/perfil">Perfil</Link>
       </MenubarItem>
     </>
   );

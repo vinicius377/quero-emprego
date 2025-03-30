@@ -1,16 +1,23 @@
-import type * as React from "react"
+import React, { useState } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import { DayPicker } from "react-day-picker"
-
+import { DayPicker, useDayPicker, useSelectSingle } from "react-day-picker"
+import { ptBR } from "date-fns/locale"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
+import { format } from "date-fns"
+import { Popover, PopoverTrigger } from "./popover"
+import { PopoverContent } from "@radix-ui/react-popover"
 
+const dates = [2010, 2009]
 function Calendar({
   className,
   classNames,
   showOutsideDays = true,
+  selected,
   ...props
 }: React.ComponentProps<typeof DayPicker>) {
+  // const [year, setYear] = useState((selected as Date).getFullYear())
+  // console.log(year)
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
@@ -57,6 +64,9 @@ function Calendar({
         day_hidden: "invisible",
         ...classNames,
       }}
+      locale={ptBR}
+      captionLayout="dropdown"
+      // toYear={year}
       components={{
         IconLeft: ({ className, ...props }) => (
           <ChevronLeft className={cn("size-4", className)} {...props} />
@@ -64,6 +74,19 @@ function Calendar({
         IconRight: ({ className, ...props }) => (
           <ChevronRight className={cn("size-4", className)} {...props} />
         ),
+        // CaptionLabel: ({ displayMonth, ...props }) => {
+        //   const date = format(displayMonth, "MMMM 'de' yyyy", { locale: ptBR })
+        //   return <Popover>
+        //     <PopoverTrigger>
+        //       <div className="font-md" {...props}>{date}</div>
+        //     </PopoverTrigger>
+        //     <PopoverContent>
+        //       {dates.map(x => (
+        //         <div onClick={() => setYear(x)}>{x}</div>
+        //       ))}
+        //     </PopoverContent>
+        //   </Popover>
+        // }
       }}
       {...props}
     />

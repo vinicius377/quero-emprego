@@ -43,7 +43,7 @@ const businessSchema = new Schema<Business>({
     default: randomUUID(),
     unique: true,
   },
-});
+}, { timestamps: true });
 
 const businessCollectionName = "business";
 businessSchema.pre("find", function (next) {

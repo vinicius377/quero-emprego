@@ -21,6 +21,7 @@ import { Button } from '@/components/ui/button';
 import type { z } from 'zod';
 import { toast } from 'react-toastify';
 import { TitleHead } from '@/components/shared/TitleHead';
+import { queryClient } from '@/lib/queryClient';
 
 type UpdateJobAdvert = z.infer<typeof updateJobAdvertValidator>;
 
@@ -63,6 +64,7 @@ function EditJobComponent() {
 		try {
 			await trpc.jobAdvert.edit.mutate(data);
 			toast.success('Post de emprego atualizado');
+      queryClient.invalidateQueries({ queryKey: ['job-by-id'] })
 		} catch (e) {
 			toast.error(e.message);
 		}

@@ -43,7 +43,7 @@ Candidatos
 - [x] Candidatos podem alterar as suas informações
 
 ## Tecnologias
-Utilizando monorepo, com yarn
+Utilizando monorepo, com yarn e turbo repo
 
 ### Front-end
 - React 

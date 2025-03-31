@@ -122,7 +122,6 @@ body {
 
 @theme {
   --color-blue: #2379bd;
-  --color-blue-70: #2379bd;
 }
 
 @layer base {

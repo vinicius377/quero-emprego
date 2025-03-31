@@ -13,6 +13,7 @@ import { TitleHead } from '@/components/shared/TitleHead';
 import styles from './style.module.css';
 import { twMerge } from 'tailwind-merge';
 import { Empty } from '@/components/shared/Empty';
+import { Loading } from '@/components/layout/Loading';
 
 function JobDetailsComponent() {
 	const { id } = useParams();
@@ -45,7 +46,7 @@ function JobDetailsComponent() {
 	}, [id, navigate]);
 
 	if (jobLoading || applicationLoading || !job || !applications)
-		return <div>Carregando...</div>;
+		return <Loading />
 
 	return (
 		<section>

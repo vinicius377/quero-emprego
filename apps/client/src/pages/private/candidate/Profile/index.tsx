@@ -1,11 +1,11 @@
 import { PrivateRoute } from "@/components/shared/PrivateRoute";
 import { trpc } from "@/lib/trpc";
 import { Role } from "@packages/types/enums";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { updateCandidateValidator } from "@packages/validators/candidate/update-candidate"
 import { Input } from "@/components/ui/input";
 import { useFieldArray, useForm } from "react-hook-form";
-import { z } from "zod"
+import type { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Textarea } from "@/components/ui/textarea";
 import { DatePicker } from "@/components/ui/date-picker";
@@ -17,7 +17,7 @@ import { toast } from "react-toastify";
 type Profile = z.infer<typeof updateCandidateValidator>
 
 function ProfileComponent() {
-  const { data: candidate } = useQuery({
+  const { data: candidate } = useSuspenseQuery({
     queryKey: ["get-candidate-token"],
     queryFn: () => trpc.candidate.getByToken.query()
   })
@@ -28,7 +28,7 @@ function ProfileComponent() {
     reset,
     watch,
     handleSubmit,
-    formState: { isSubmitting, isLoading, errors }
+    formState: { isSubmitting, errors }
   } = useForm({
     resolver: zodResolver(updateCandidateValidator),
     defaultValues: {
@@ -85,8 +85,6 @@ function ProfileComponent() {
   const addNewExperience = () => {
     appendExperience({ roleName: "", businessName: "", description: "", endDate: new Date(), startDate: new Date() })
   }
-
-  if (isLoading) return <div>Carregando</div>
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

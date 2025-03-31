@@ -1,9 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { trpc } from 'lib/trpc';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import * as moneyMask from '@/utils/moneyMask';
-import { Button } from '@/components/ui/button';
 import { userService } from '@/services/user.service';
 import { useAtomValue } from 'jotai';
 import { Image, Search } from 'lucide-react';
@@ -12,7 +9,6 @@ import { twMerge } from 'tailwind-merge';
 import { useEffect, useState } from 'react';
 import { Empty } from '@/components/shared/Empty';
 import parse from 'html-react-parser';
-import { Role } from '@packages/types/enums';
 import { Input } from '@/components/ui/input';
 import { useDebounce } from '@/hooks/Debounce';
 import { format } from 'date-fns';
@@ -22,9 +18,8 @@ export function JobsAdverts() {
 	const [search, setSearch] = useState('');
 	const {
 		data: jobs,
-		isLoading,
     refetch
-	} = useQuery({
+	} = useSuspenseQuery({
 		queryKey: ['job-advert-list'],
 		queryFn: () =>
 			trpc.jobAdvert.list.query({ page: 1, size: 10, term: search }),
@@ -41,8 +36,6 @@ export function JobsAdverts() {
 		const job = jobId === opened ? '' : jobId;
 		setOpened(job);
 	};
-
-	if (isLoading || !jobs) return <div>Carregando</div>;
 
 	return (
 		<section className="space-y-2">

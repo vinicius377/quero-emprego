@@ -1,5 +1,5 @@
 import { trpc } from '@/lib/trpc';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import * as moneyMask from '@/utils/moneyMask';
 import { PrivateRoute } from '@/components/shared/PrivateRoute';
 import { useNavigate } from 'react-router-dom';
@@ -8,13 +8,11 @@ import { Empty } from '@/components/shared/Empty';
 import { Role } from '@packages/types/enums';
 
 function ListJobAdvertComponent() {
-  const { data: jobs, isLoading } = useQuery({
+  const { data: jobs } = useSuspenseQuery({
     queryFn: () => trpc.jobAdvert.listByBusiness.query({ page: 1, size: 10 }),
     queryKey: ['job-advert-business'],
   });
   const navigate = useNavigate();
-
-  if (isLoading) return <div>Carregando..</div>;
 
   return (
     <section className="space-y-2">

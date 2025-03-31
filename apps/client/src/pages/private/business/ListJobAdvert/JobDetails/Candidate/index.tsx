@@ -1,8 +1,9 @@
+import { Loading } from '@/components/layout/Loading';
 import { Empty } from '@/components/shared/Empty';
 import { PrivateRoute } from '@/components/shared/PrivateRoute';
 import { TitleHead } from '@/components/shared/TitleHead';
 import { trpc } from '@/lib/trpc';
-import { RouterOutput } from '@packages/trpc';
+import type { RouterOutput } from '@packages/trpc';
 import { Role } from '@packages/types/enums';
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
@@ -31,7 +32,7 @@ function CandidateComponent() {
 
 
   if (!candidate || isLoading)
-    return <div>Carregando...</div>;
+    return <Loading />
 
   return <section>
     <TitleHead

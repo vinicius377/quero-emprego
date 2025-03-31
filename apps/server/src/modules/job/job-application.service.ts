@@ -5,7 +5,7 @@ import {
   jobApplicationRepository,
 } from "./repositories/job-application.repository";
 import { Candidate } from "#modules/candidate/entity/candidate.type";
-import { JobAdvertRepository } from "./repositories/job-advert.repository";
+import { jobAdvertRepository, JobAdvertRepository } from "./repositories/job-advert.repository";
 import { StatusJob } from "@packages/types/enums";
 
 class JobApplicationService {
@@ -23,6 +23,7 @@ class JobApplicationService {
     if (applied) {
       throw new TRPCError({ message: "Emprego ja aplicado", code: "CONFLICT" });
     }
+    console.log(this.jobAdvertRepository)
     const jobAdvert = await this.jobAdvertRepository.getById(dto.jobAdvertId)
 
     if (jobAdvert?.status !== StatusJob.opened) {
@@ -46,5 +47,6 @@ class JobApplicationService {
 }
 
 export const jobApplicationService = new JobApplicationService(
-  jobApplicationRepository
+  jobApplicationRepository,
+  jobAdvertRepository
 );

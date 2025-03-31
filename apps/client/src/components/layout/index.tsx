@@ -14,7 +14,7 @@ export function Layout({ children }: { children: ReactNode }) {
 			<div className="fixed top-0 z-10 w-full">
 				<Header />
 			</div>
-			<main className="pt-14 flex-1 min-h-full mt-2 mb-2 px-2 bg-[#fafafa]">
+			<main className="pt-14 flex-1 min-h-full mt-2 pb-2 px-2 bg-[#fafafa]">
 				<Suspense fallback={<Loading />}>
 					<div className="max-w-[70rem] m-auto">{children}</div>
 				</Suspense>

@@ -1,6 +1,8 @@
 # Quero Emprego - Mucambo
 
-Site para busca de empregos, na cidade de Mucambo 💼🤝🏽
+Site para busca de empregos, na cidade de Mucambo 💼🤝🏽. 
+Notei que a busca por empregos na minha cidade era desorganizada, as empresas postavam que estavam em busca de novos colaboradores em grupos de WhatsAp e perfis no Instagram ou Facebook, isso trazia uma grande desvantagem tanto aos interessados, pois as oportunidades então espalhadas em diversas plataformas, quanto para as empresas, pois os seus informativos não chegam ao candidato ideal.
+Outras plataformas de emprego também não seriam muito úteis, pois não são muito populares na minha região. Por isso criei essa plataforma, para centralizar empregos especificamente para a minha cidade.
 
 <table>
     <tr>

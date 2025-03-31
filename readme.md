@@ -49,9 +49,9 @@ Utilizando monorepo, com yarn
 - React 
 - Rspack
 - Jotai
-- tRCP
+- tRPC
 - shadcn
 
 ### Back-end
-- tRPC
+- tRPC 
 - Mongoose

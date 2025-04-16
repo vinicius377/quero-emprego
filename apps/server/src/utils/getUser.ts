@@ -5,6 +5,7 @@ import { TokenData } from "#modules/auth/types/token";
 
 export const getUser = async (req: IncomingMessage) => {
   const token = getCookie(req, "auth") 
+
   if (!token) {
     return null
   }

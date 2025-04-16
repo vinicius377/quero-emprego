@@ -41,6 +41,8 @@ class Auth {
     const payload = this.mountTokenPayloadToBusiness(business);
     const { token, expires } = await this.jwtService.sign(payload);
 
+    console.log(token)
+
     return {
       token,
       payload: {

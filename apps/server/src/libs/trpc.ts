@@ -34,8 +34,18 @@ const t = initTRPC.context<typeof createContext>().create({
 });
 
 export const router = t.router;
+export const createCallerFactory = t.createCallerFactory
+
 export const publicProcedure = t.procedure.use(async (opts) => {
   const user = await getUser(opts.ctx.req);
+
+  if (user?.role !== Role.candidate) {
+    return opts.next({
+      ctx: {
+        user: null
+      }
+    })
+  }
 
   return opts.next({
     ctx: {

@@ -23,6 +23,7 @@ class UserService {
     store.set(this._user, null);
     this.cookie.remove(this.key);
   }
+
 }
 
 export const userService = new UserService();

@@ -17,7 +17,8 @@
   },
   "devDependencies": {
     "tsx": "^4.19.3",
-    "turbo": "^2.4.4"
+    "turbo": "^2.4.4",
+    "vitest": "^3.1.1"
   },
   "packageManager": "yarn@1.22.22",
   "main": "index.js",
